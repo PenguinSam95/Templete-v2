@@ -6,7 +6,6 @@ import {State, Player} from "ZEPETO.Multiplay.Schema";
 import {GameObject, Object, Quaternion, Transform, Vector3, WaitForSeconds} from "UnityEngine";
 import PlayerSync from './PlayerSync';
 import TransformSyncHelper,{PositionExtrapolationType, PositionInterpolationType, SyncIndexType} from '../Transform/TransformSyncHelper';
-import PlayerKickManager from '../Managers/PlayerKickManager';
 
 export enum ZepetoPlayerSpawnType {
     NoneSpawn,//Do not create players
@@ -35,8 +34,6 @@ export default class ZepetoPlayersManager extends ZepetoScriptBehaviour {
     private room: Room;
     private currentPlayers: Map<string, Player> = new Map<string, Player>();
     private spawnPoint: Transform;
-
-    private kickManager:PlayerKickManager;
 
     
     /* Singleton */
@@ -86,7 +83,6 @@ export default class ZepetoPlayersManager extends ZepetoScriptBehaviour {
                 }
                 break;
         }
-        this.kickManager = GameObject.FindObjectOfType<PlayerKickManager>();
     }
     
     /** singleplayer Spawn **/
@@ -163,8 +159,6 @@ export default class ZepetoPlayersManager extends ZepetoScriptBehaviour {
     private OnJoinPlayer(sessionId: string, player: Player) {
         // console.log(`[OnJoinPlayer] players - sessionId : ${sessionId}`);
         this.currentPlayers.set(sessionId, player);
-
-        if(this.kickManager) this.kickManager.PlayerUpdate(this.currentPlayers);
         
         if(this.ZepetoPlayerSpawnType == ZepetoPlayerSpawnType.MultiplayerSpawnOnJoinRoom) {
             const spawnInfo = new SpawnInfo();
@@ -182,8 +176,6 @@ export default class ZepetoPlayersManager extends ZepetoScriptBehaviour {
     private OnLeavePlayer(sessionId: string, player: Player) {
         this.currentPlayers.delete(sessionId);
         ZepetoPlayers.instance.RemovePlayer(sessionId);
-        
-        if(this.kickManager) this.kickManager.PlayerUpdate(this.currentPlayers);
     }
     
     

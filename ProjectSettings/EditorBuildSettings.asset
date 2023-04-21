@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MultiplaySync/Demo Render.unity
     guid: 124e7a03b99938c4db8be9c34e42b4be
   - enabled: 1
-    path: Assets/Scenes/MultiplaySync/Demo.unity
+    path: Assets/Scenes/Demo.unity
     guid: 0b62b70c0a74947afa3f78db49d5de07
   - enabled: 1
     path: Assets/Scenes/MultiplaySync/PlayerSync.unity

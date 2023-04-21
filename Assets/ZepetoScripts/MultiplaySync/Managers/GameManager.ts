@@ -9,7 +9,6 @@ import SyncIndexManager from '../Common/SyncIndexManager';
 import DOTWeenSyncHelper from '../DOTween/DOTWeenSyncHelper';
 import PlayerSync from '../Player/PlayerSync';
 import ChairSit from '../Sample Code/ChairSit';
-import VehicleController from '../Sample Code/VehicleController';
 import TransformSyncHelper from '../Transform/TransformSyncHelper';
 import UIManager, { LoadingType } from './UIManager';
 
@@ -111,22 +110,6 @@ export default class GameManager extends ZepetoScriptBehaviour {
                 serverSender = "ChairSit";
                 break;
 
-            case ButtonType.Vehicle:
-                console.log(`ButtonType.Vehicle ${btn.name} ${target}`);
-                var vehicleController = target.GetComponent<VehicleController>();
-                if(!vehicleController) return;
-                data.Add("isSit", true);
-                data.Add("chairId", vehicleController.Id);
-                serverSender = "ChairSit";
-
-                break;
-            case ButtonType.Train:
-                var vehicleController = target.GetComponent<VehicleController>();
-                if(!vehicleController) return;
-                data.Add("isSit", true);
-                data.Add("chairId", vehicleController.Id);
-                serverSender = "ChairSit";
-
             case ButtonType.EquipHead:
                 data.Add("name", target.name);
                 data.Add("attach", HumanBodyBones.Head);
@@ -143,48 +126,6 @@ export default class GameManager extends ZepetoScriptBehaviour {
                 console.error(`타입이 설정되지 않은 버튼이 있습니다. ${btn.name}`)
                 break;
         }
-        // if(buttonType == ButtonType.Chair) {
-        //     console.log(`ButtonType.Chair ${btn.name} ${target}`);
-        //     const chairSit = target.GetComponent<ChairSit>();
-        //     if(!chairSit) return;
-        //     data.Add("isSit", true);
-        //     data.Add("chairId", chairSit.Id);
-        //     serverSender = "ChairSit";
-
-
-        // } else if(buttonType == ButtonType.Vehicle) {
-        //     console.log(`ButtonType.Vehicle ${btn.name} ${target}`);
-        //     var vehicleController = target.GetComponent<VehicleController>();
-        //     if(!vehicleController) return;
-        //     data.Add("isSit", true);
-        //     data.Add("chairId", vehicleController.Id);
-        //     serverSender = "ChairSit";
-
-
-        // } else if(buttonType == ButtonType.Train) {
-        //     var vehicleController = target.GetComponent<VehicleController>();
-        //     if(!vehicleController) return;
-        //     data.Add("isSit", true);
-        //     data.Add("chairId", vehicleController.Id);
-        //     serverSender = "ChairSit";
-
-
-        // } else if(buttonType == ButtonType.EquipHead) {
-        //     data.Add("name", target.name);
-        //     data.Add("attach", HumanBodyBones.Head);
-        //     serverSender = "Equip";
-
-
-        // } else if(buttonType == ButtonType.EquipBody) {
-        //     data.Add("name", target.name);
-        //     data.Add("attach", HumanBodyBones.UpperChest);
-        //     serverSender = "Equip";
-
-
-        // } else {
-        //     console.error(`타입이 설정되지 않은 버튼이 있습니다. ${btn.name}`)
-        // }
-
 
         this.room.Send(serverSender, data.GetObject());
     }
@@ -202,6 +143,6 @@ export default class GameManager extends ZepetoScriptBehaviour {
 
 export enum ButtonType {
     NULL = -1,
-    Chair, Vehicle, Train,
+    Chair,
     EquipHead, EquipRightHand, EquipLeftHand, EquipBody,
 }

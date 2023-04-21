@@ -1,0 +1,47 @@
+fileFormatVersion: 2
+guid: 1b0abac81dce6544a8cc248bee3caf5b
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst __UnityEngine__ = require(\"UnityEngine\");\r\nconst
+    UnityEngine_1 = require(\"UnityEngine\");\r\nconst ZEPETO_Character_Controller_1
+    = require(\"ZEPETO.Character.Controller\");\r\nconst ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst
+    GameManager_1 = require(\"./MultiplaySync/Managers/GameManager\");\r\nclass LookAt
+    extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    constructor() {\r\n       
+    super(...arguments);\r\n        this.buttonType = GameManager_1.ButtonType.NULL;\r\n   
+    }\r\n    Start() {\r\n        this.renderer = this.GetComponent($typeof(UnityEngine_1.SpriteRenderer));\r\n       
+    if (this.renderer)\r\n            this.renderer.enabled = false;\r\n        this.collider
+    = this.GetComponent($typeof(UnityEngine_1.Collider));\r\n        if (this.collider)\r\n           
+    this.collider.enabled = false;\r\n    }\r\n    StartLooking(col) {\r\n       
+    if (ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer == null)\r\n           
+    return;\r\n        this.character = ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character.gameObject;\r\n       
+    if (__UnityEngine__.Object.op_Inequality(col.gameObject, this.character))\r\n           
+    return;\r\n        if (this.collider)\r\n            this.collider.enabled =
+    true;\r\n        if (this.renderer)\r\n            this.renderer.enabled = true;\r\n       
+    this.StartCoroutine(this.LookAtLocalPlayer());\r\n    }\r\n    StopLooking(col)
+    {\r\n        if (__UnityEngine__.Object.op_Inequality(col.gameObject, this.character))\r\n           
+    return;\r\n        if (this.renderer)\r\n            this.renderer.enabled =
+    false;\r\n        if (this.collider)\r\n            this.collider.enabled = false;\r\n       
+    this.StopCoroutine(this.LookAtLocalPlayer());\r\n    }\r\n    *LookAtLocalPlayer()
+    {\r\n        this.transform.LookAt(ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoCamera.cameraParent.GetChild(0).transform.position);\r\n       
+    while (true) {\r\n            yield new UnityEngine_1.WaitForSeconds(0.1);\r\n           
+    this.transform.LookAt(ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoCamera.cameraParent.GetChild(0).transform.position);\r\n       
+    }\r\n    }\r\n}\r\nexports.default = LookAt;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiTG9va0F0LmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiTG9va0F0LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7OztBQUFBLDZDQUE4RjtBQUM5Riw2RUFBNEQ7QUFDNUQsaURBQXFEO0FBQ3JELHNFQUFrRTtBQUVsRSxNQUFxQixNQUFPLFNBQVEscUNBQXFCO0lBQXpEOztRQU1XLGVBQVUsR0FBZ0Isd0JBQVUsQ0FBQyxJQUFJLENBQUM7SUF3Q3JELENBQUM7SUF2Q0csS0FBSztRQUNELElBQUksQ0FBQyxRQUFRLEdBQUcsSUFBSSxDQUFDLFlBQVksU0FBQyw0QkFBYyxFQUFHLENBQUM7UUFDcEQsSUFBRyxJQUFJLENBQUMsUUFBUTtZQUFFLElBQUksQ0FBQyxRQUFRLENBQUMsT0FBTyxHQUFHLEtBQUssQ0FBQztRQUVoRCxJQUFJLENBQUMsUUFBUSxHQUFHLElBQUksQ0FBQyxZQUFZLFNBQUMsc0JBQVEsRUFBRyxDQUFDO1FBQzlDLElBQUcsSUFBSSxDQUFDLFFBQVE7WUFBRSxJQUFJLENBQUMsUUFBUSxDQUFDLE9BQU8sR0FBRyxLQUFLLENBQUM7SUFDcEQsQ0FBQztJQUVNLFlBQVksQ0FBQyxHQUFjO1FBQzlCLElBQUcsMkNBQWEsQ0FBQyxRQUFRLENBQUMsV0FBVyxJQUFJLElBQUk7WUFDekMsT0FBTztRQUVYLElBQUksQ0FBQyxTQUFTLEdBQUcsMkNBQWEsQ0FBQyxRQUFRLENBQUMsV0FBVyxDQUFDLFlBQVksQ0FBQyxTQUFTLENBQUMsVUFBVSxDQUFDO1FBQ3RGLDJCQTBCc3FTLGFBQWMsQ0ExQmpyUyxHQUFHLENBQUMsVUFBVSxFQUFJLElBQUksQ0FBQyxTQUFTO1lBQy9CLE9BQU87UUFFWCxJQUFHLElBQUksQ0FBQyxRQUFRO1lBQUUsSUFBSSxDQUFDLFFBQVEsQ0FBQyxPQUFPLEdBQUcsSUFBSSxDQUFDO1FBQy9DLElBQUcsSUFBSSxDQUFDLFFBQVE7WUFBRSxJQUFJLENBQUMsUUFBUSxDQUFDLE9BQU8sR0FBRyxJQUFJLENBQUM7UUFDL0MsSUFBSSxDQUFDLGNBQWMsQ0FBQyxJQUFJLENBQUMsaUJBQWlCLEVBQUUsQ0FBQyxDQUFDO0lBQ2xELENBQUM7SUFFTSxXQUFXLENBQUMsR0FBYztRQUM3QiwyQkFpQnNxUyxhQUFjLENBakJqclMsR0FBRyxDQUFDLFVBQVUsRUFBSSxJQUFJLENBQUMsU0FBUztZQUMvQixPQUFPO1FBRVgsSUFBRyxJQUFJLENBQUMsUUFBUTtZQUFFLElBQUksQ0FBQyxRQUFRLENBQUMsT0FBTyxHQUFHLEtBQUssQ0FBQztRQUNoRCxJQUFHLElBQUksQ0FBQyxRQUFRO1lBQUUsSUFBSSxDQUFDLFFBQVEsQ0FBQyxPQUFPLEdBQUcsS0FBSyxDQUFDO1FBQ2hELElBQUksQ0FBQyxhQUFhLENBQUMsSUFBSSxDQUFDLGlCQUFpQixFQUFFLENBQUMsQ0FBQztJQUNqRCxDQUFDO0lBRU8sQ0FBRSxpQkFBaUI7UUFDdkIsSUFBSSxDQUFDLFNBQVMsQ0FBQyxNQUFNLENBQUMsMkNBQWEsQ0FBQyxRQUFRLENBQUMsV0FBVyxDQUFDLFlBQVksQ0FBQyxZQUFZLENBQUMsUUFBUSxDQUFDLENBQUMsQ0FBQyxDQUFDLFNBQVMsQ0FBQyxRQUFRLENBQUMsQ0FBQztRQUNuSCxPQUFNLElBQUksRUFDVjtZQUNJLE1BQU0sSUFBSSw0QkFBYyxDQUFDLEdBQUcsQ0FBQyxDQUFDO1lBQzlCLElBQUksQ0FBQyxTQUFTLENBQUMsTUFBTSxDQUFDLDJDQUFhLENBQUMsUUFBUSxDQUFDLFdBQVcsQ0FBQyxZQUFZLENBQUMsWUFBWSxDQUFDLFFBQVEsQ0FBQyxDQUFDLENBQUMsQ0FBQyxTQUFTLENBQUMsUUFBUSxDQUFDLENBQUM7U0FDdEg7SUFDTCxDQUFDO0NBRUo7QUE5Q0QseUJBOENDIn0=","assetPath":"Assets/ZepetoScripts/LookAt.ts","manifest":{"properties":[{"assembly":"UnityEngine.CoreModule","name":"scriptTarget","type":"UnityEngine.Transform","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"","name":"buttonType","type":"ButtonType","isArray":false,"initValue":["NULL"],"enumKeys":["NULL","Chair","Vehicle","Train","EquipHead","EquipRightHand","EquipLeftHand","EquipBody"],"enumValues":["-1","0","1","2","3","4","5","6"],"attributes":[]}],"name":"LookAt","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: 7804620162e42e40ab461cf6037140a6
+  onlyWriteTrigger: 0

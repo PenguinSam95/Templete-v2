@@ -1,0 +1,54 @@
+fileFormatVersion: 2
+guid: 48baa785eeb7ad04e9de840679eb1d6b
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nvar __decorate = (this && this.__decorate)
+    || function (decorators, target, key, desc) {\r\n    var c = arguments.length,
+    r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target,
+    key) : desc, d;\r\n    if (typeof Reflect === \"object\" && typeof Reflect.decorate
+    === \"function\") r = Reflect.decorate(decorators, target, key, desc);\r\n   
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i])
+    r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;\r\n   
+    return c > 3 && r && Object.defineProperty(target, key, r), r;\r\n};\r\nObject.defineProperty(exports,
+    \"__esModule\", { value: true });\r\nexports.LoadingType = void 0;\r\nconst UnityEngine_1
+    = require(\"UnityEngine\");\r\nconst UnityEngine_UI_1 = require(\"UnityEngine.UI\");\r\nconst
+    ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nvar LoadingType;\r\n(function
+    (LoadingType) {\r\n    LoadingType[\"Start\"] = \"UI_Loarding_Start\";\r\n   
+    LoadingType[\"Teleport\"] = \"UI_Loarding_Teleport\";\r\n    LoadingType[\"NONE\"]
+    = \"\";\r\n})(LoadingType = exports.LoadingType || (exports.LoadingType = {}));\r\nclass
+    UIManager extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    static get instance()
+    {\r\n        if (this._instance === null) {\r\n            this._instance = UnityEngine_1.GameObject.FindObjectOfType($typeof(UIManager));\r\n           
+    if (this._instance === null) {\r\n                this._instance = new UnityEngine_1.GameObject(UIManager.name).AddComponent($typeof(UIManager));\r\n           
+    }\r\n        }\r\n        return this._instance;\r\n    }\r\n    Awake() {\r\n       
+    if (UIManager._instance !== null && UIManager._instance !== this) {\r\n           
+    UnityEngine_1.GameObject.Destroy(this.gameObject);\r\n        }\r\n        else
+    {\r\n            UIManager._instance = this;\r\n            UnityEngine_1.GameObject.DontDestroyOnLoad(this.gameObject);\r\n       
+    }\r\n        const images = this.canvas.GetComponentsInChildren($typeof(UnityEngine_UI_1.Image));\r\n       
+    this.loadingUIs = new Array();\r\n        for (const img of images) {\r\n           
+    switch (img.tag) {\r\n                case \"Loading\":\r\n                   
+    this.loadingUIs.push(img.gameObject);\r\n                    img.gameObject.SetActive(false);\r\n                   
+    break;\r\n            }\r\n        }\r\n    }\r\n    Start() {\r\n    }\r\n   
+    /* Find GameObject */\r\n    FindLoadingImage(type) {\r\n        const tName
+    = type.toString();\r\n        for (const item of this.loadingUIs) {\r\n           
+    if (item.name == tName)\r\n                return item;\r\n        }\r\n       
+    return null;\r\n    }\r\n}\r\n/* Singleton */\r\nUIManager._instance = null;\r\n__decorate([],
+    UIManager.prototype, \"canvas\", void 0);\r\nexports.default = UIManager;\r\n//#
+    sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiVUlNYW5hZ2VyLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiVUlNYW5hZ2VyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7OztBQUFBLDZDQUF5QztBQUN6QyxtREFBdUM7QUFDdkMsaURBQXFEO0FBRXJELElBQVksV0FJWDtBQUpELFdBQVksV0FBVztJQUNuQiwwQ0FBMkIsQ0FBQTtJQUMzQixnREFBaUMsQ0FBQTtJQUNqQyx3QkFBUyxDQUFBO0FBQ2IsQ0FBQyxFQUpXLFdBQVcsR0FBWCxtQkFBVyxLQUFYLG1CQUFXLFFBSXRCO0FBQ0QsTUFBcUIsU0FBVSxTQUFRLHFDQUFxQjtJQVdqRCxNQUFNLEtBQUssUUFBUTtRQUN0QixJQUFJLElBQUksQ0FBQyxTQUFTLEtBQUssSUFBSSxFQUFFO1lBQ3pCLElBQUksQ0FBQyxTQUFTLEdBQUcsd0JBQVUsQ0FBQyxnQkFBZ0IsU0FBQyxTQUFTLEVBQUcsQ0FBQztZQUMxRCxJQUFJLElBQUksQ0FBQyxTQUFTLEtBQUssSUFBSSxFQUFFO2dCQUN6QixJQUFJLENBQUMsU0FBUyxHQUFHLElBQUksd0JBQVUsQ0FBQyxTQUFTLENBQUMsSUFBSSxDQUFDLENBQUMsWUFBWSxTQUFDLFNBQVMsRUFBRyxDQUFDO2FBQzdFO1NBQ0o7UUFDRCxPQUFPLElBQUksQ0FBQyxTQUFTLENBQUM7SUFDMUIsQ0FBQztJQUVPLEtBQUs7UUFDVCxJQUFJLFNBQVMsQ0FBQyxTQUFTLEtBQUssSUFBSSxJQUFJLFNBQVMsQ0FBQyxTQUFTLEtBQUssSUFBSSxFQUFFO1lBQzlELHdCQUFVLENBQUMsT0FBTyxDQUFDLElBQUksQ0FBQyxVQUFVLENBQUMsQ0FBQztTQUN2QzthQUFNO1lBQ0gsU0FBUyxDQUFDLFNBQVMsR0FBRyxJQUFJLENBQUM7WUFDM0Isd0JBQVUsQ0FBQyxpQkFBaUIsQ0FBQyxJQUFJLENBQUMsVUFBVSxDQUFDLENBQUM7U0FDakQ7UUFFRCxNQUFNLE1BQU0sR0FBRyxJQUFJLENBQUMsTUFBTSxDQUFDLHVCQUF1QixTQUFDLHNCQUFLLEVBQUcsQ0FBQztRQUM1RCxJQUFJLENBQUMsVUFBVSxHQUFHLElBQUksS0FBSyxFQUFjLENBQUM7UUFFMUMsS0FBSSxNQUFNLEdBQUcsSUFBSSxNQUFNLEVBQUU7WUFDckIsUUFBTyxHQUFHLENBQUMsR0FBRyxFQUFFO2dCQUNaLEtBQUssU0FBUztvQkFDVixJQUFJLENBQUMsVUFBVSxDQUFDLElBQUksQ0FBQyxHQUFHLENBQUMsVUFBVSxDQUFDLENBQUM7b0JBQ3JDLEdBQUcsQ0FBQyxVQUFVLENBQUMsU0FBUyxDQUFDLEtBQUssQ0FBQyxDQUFDO29CQUNoQyxNQUFNO2FBQ2I7U0FDSjtJQUNMLENBQUM7SUFFRCxLQUFLO0lBRUwsQ0FBQztJQUVELHFCQUFxQjtJQUNyQixnQkFBZ0IsQ0FBQyxJQUFnQjtRQUM3QixNQUFNLEtBQUssR0FBVyxJQUFJLENBQUMsUUFBUSxFQUFFLENBQUM7UUFDdEMsS0FBSyxNQUFNLElBQUksSUFBSSxJQUFJLENBQUMsVUFBVSxFQUFFO1lBQ2hDLElBQUcsSUFBSSxDQUFDLElBQUksSUFBSSxLQUFLO2dCQUNqQixPQUFPLElBQUksQ0FBQztTQUNuQjtRQUNELE9BQU8sSUFBSSxDQUFDO0lBQ2hCLENBQUM7O0FBN0NELGVBQWU7QUFDQSxtQkFBUyxHQUFjLElBQUksQ0FBQztBQVB6QixxREFBMkI7QUFIakQsNEJBdURDIn0=","assetPath":"Assets/ZepetoScripts/MultiplaySync/Managers/UIManager.ts","manifest":{"properties":[{"assembly":"UnityEngine.CoreModule","name":"canvas","type":"UnityEngine.GameObject","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"SerializeField","args":[]}]}],"name":"UIManager","description":""},"isCompiled":true}'
+  typescriptHash: 664fd4b3d4e2900ea382973760b5377a
+  onlyWriteTrigger: 0

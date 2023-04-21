@@ -1,0 +1,34 @@
+fileFormatVersion: 2
+guid: 04f87574a4613034496f49b66c5d4758
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst
+    ZEPETO_Script_Leaderboard_1 = require(\"ZEPETO.Script.Leaderboard\");\r\nclass
+    LeaderBoardController extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n   
+    Start() {\r\n    }\r\n    GetCoin(coin) {\r\n        LeaderBoardController.coinStack
+    += coin;\r\n        ZEPETO_Script_Leaderboard_1.LeaderboardAPI.SetScore(this.leaderboardId,
+    LeaderBoardController.coinStack, this.OnResult, this.OnError);\r\n    }\r\n   
+    OnResult(result) {\r\n        console.log(` ++++++++++++++++++++++++++++++ result
+    : ${result.isSuccess} `);\r\n    }\r\n    OnError(error) {\r\n        console.log(`
+    ++++++++++++++++++++++++++++++ error : ${error} `);\r\n    }\r\n}\r\nexports.default
+    = LeaderBoardController;\r\nLeaderBoardController.coinStack = 0;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiTGVhZGVyQm9hcmRDb250cm9sbGVyLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiTGVhZGVyQm9hcmRDb250cm9sbGVyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsaURBQXFEO0FBQ3JELHlFQUE2RTtBQUU3RSxNQUFxQixxQkFBc0IsU0FBUSxxQ0FBcUI7SUFPcEUsS0FBSztJQUNMLENBQUM7SUFFTSxPQUFPLENBQUMsSUFBVztRQUN0QixxQkFBcUIsQ0FBQyxTQUFTLElBQUksSUFBSSxDQUFDO1FBQ3hDLDBDQUFjLENBQUMsUUFBUSxDQUFDLElBQUksQ0FBQyxhQUFhLEVBQUUscUJBQXFCLENBQUMsU0FBUyxFQUFFLElBQUksQ0FBQyxRQUFRLEVBQUUsSUFBSSxDQUFDLE9BQU8sQ0FBQyxDQUFBO0lBQzdHLENBQUM7SUFFRCxRQUFRLENBQUMsTUFBdUI7UUFFNUIsT0FBTyxDQUFDLEdBQUcsQ0FBQyw0Q0FBNEMsTUFBTSxDQUFDLFNBQVMsR0FBRyxDQUFDLENBQUM7SUFDakYsQ0FBQztJQUVELE9BQU8sQ0FBQyxLQUFZO1FBRWhCLE9BQU8sQ0FBQyxHQUFHLENBQUMsMkNBQTJDLEtBQUssR0FBRyxDQUFDLENBQUM7SUFDckUsQ0FBQzs7QUF2Qkwsd0NBeUJDO0FBcEJrQiwrQkFBUyxHQUFVLENBQUMsQ0FBQyJ9","assetPath":"Assets/ZepetoScripts/MultiplaySync/Sample
+    Code/LeaderBoardController.ts","manifest":{"properties":[{"assembly":"mscorlib","name":"leaderboardId","type":"System.String","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]}],"name":"LeaderBoardController","description":""},"isCompiled":true}'
+  typescriptHash: 30c2cbbdd97a6db03284d0fcb35314f1
+  onlyWriteTrigger: 0

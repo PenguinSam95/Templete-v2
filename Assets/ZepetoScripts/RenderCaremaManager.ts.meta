@@ -1,0 +1,46 @@
+fileFormatVersion: 2
+guid: f0048b6c383953245adcb25855d3f812
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst UnityEngine_1 = require(\"UnityEngine\");\r\nconst
+    ZEPETO_Character_Controller_1 = require(\"ZEPETO.Character.Controller\");\r\nconst
+    ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst ZEPETO_World_1 = require(\"ZEPETO.World\");\r\nconst
+    RenderItemMove_1 = require(\"./RenderItemMove\");\r\nclass RenderCaremaManager
+    extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    Start() {\r\n        if
+    (!this.multiplay)\r\n            this.multiplay = UnityEngine_1.GameObject.FindObjectOfType($typeof(ZEPETO_World_1.ZepetoWorldMultiplay));\r\n       
+    this.layer_rnd = 1 << UnityEngine_1.LayerMask.NameToLayer(\"Render Item\");\r\n   
+    }\r\n    /* Raycasting */\r\n    Update() {\r\n        if (this.multiplay.Room
+    != null && this.multiplay.Room.IsConnected) {\r\n            const hasPlayer
+    = ZEPETO_Character_Controller_1.ZepetoPlayers.instance.HasPlayer(this.multiplay.Room.SessionId);\r\n           
+    if (hasPlayer) {\r\n                this.Rendercasting();\r\n            }\r\n       
+    }\r\n    }\r\n    Rendercasting() {\r\n        if (!this.renderCamera) {\r\n           
+    this.renderCamera = this.GetComponent($typeof(UnityEngine_1.Camera));\r\n       
+    }\r\n        if (this.renderCamera && this.renderCamera.gameObject.activeSelf)
+    {\r\n            if (UnityEngine_1.Input.GetMouseButton(0)) {\r\n               
+    const ray = this.renderCamera.ScreenPointToRay(UnityEngine_1.Input.mousePosition);\r\n               
+    const hitInfo = $ref();\r\n                if (UnityEngine_1.Physics.SphereCast(ray,
+    0.5, hitInfo, UnityEngine_1.Mathf.Infinity, this.layer_rnd)) {\r\n                   
+    console.log(`${hitInfo.value.transform.name} ${hitInfo.value.transform.gameObject.layer}
+    ${this.layer_rnd}`);\r\n                    const renderItem = hitInfo.value.transform;\r\n                   
+    renderItem.position = new UnityEngine_1.Vector3(hitInfo.value.point.x, hitInfo.value.point.y,
+    renderItem.position.z);\r\n                }\r\n            }\r\n        }\r\n   
+    }\r\n}\r\nexports.default = RenderCaremaManager;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiUmVuZGVyQ2FyZW1hTWFuYWdlci5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIlJlbmRlckNhcmVtYU1hbmFnZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSw2Q0FBaUg7QUFDakgsNkVBQTREO0FBQzVELGlEQUFxRDtBQUNyRCwrQ0FBb0Q7QUFDcEQscURBQThDO0FBRTlDLE1BQXFCLG1CQUFvQixTQUFRLHFDQUFxQjtJQU9sRSxLQUFLO1FBQ0QsSUFBRyxDQUFDLElBQUksQ0FBQyxTQUFTO1lBQ2QsSUFBSSxDQUFDLFNBQVMsR0FBRyx3QkFBVSxDQUFDLGdCQUFnQixTQUFDLG1DQUFvQixFQUFHLENBQUM7UUFFekUsSUFBSSxDQUFDLFNBQVMsR0FBRyxDQUFDLElBQUksdUJBQVMsQ0FBQyxXQUFXLENBQUMsYUFBYSxDQUFDLENBQUM7SUFDL0QsQ0FBQztJQUVELGdCQUFnQjtJQUNoQixNQUFNO1FBQ0YsSUFBSSxJQUFJLENBQUMsU0FBUyxDQUFDLElBQUksSUFBSSxJQUFJLElBQUksSUFBSSxDQUFDLFNBQVMsQ0FBQyxJQUFJLENBQUMsV0FBVyxFQUFFO1lBQ2hFLE1BQU0sU0FBUyxHQUFHLDJDQUFhLENBQUMsUUFBUSxDQUFDLFNBQVMsQ0FBQyxJQUFJLENBQUMsU0FBUyxDQUFDLElBQUksQ0FBQyxTQUFTLENBQUMsQ0FBQztZQUNsRixJQUFJLFNBQVMsRUFBRTtnQkFDWCxJQUFJLENBQUMsYUFBYSxFQUFFLENBQUM7YUFDeEI7U0FDSjtJQUNMLENBQUM7SUFFRCxhQUFhO1FBQ1QsSUFBRyxDQUFDLElBQUksQ0FBQyxZQUFZLEVBQUU7WUFDbkIsSUFBSSxDQUFDLFlBQVksR0FBRyxJQUFJLENBQUMsWUFBWSxTQUFDLG9CQUFNLEVBQUcsQ0FBQztTQUNuRDtRQUNELElBQUcsSUFBSSxDQUFDLFlBQVksSUFBSSxJQUFJLENBQUMsWUFBWSxDQUFDLFVBQVUsQ0FBQyxVQUFVLEVBQUU7WUFDN0QsSUFBRyxtQkFBSyxDQUFDLGNBQWMsQ0FBQyxDQUFDLENBQUMsRUFBRTtnQkFDeEIsTUFBTSxHQUFHLEdBQUcsSUFBSSxDQUFDLFlBQVksQ0FBQyxnQkFBZ0IsQ0FBQyxtQkFBSyxDQUFDLGFBQWEsQ0FBQyxDQUFDO2dCQUNwRSxNQUFNLE9BQU8sR0FBRyxJQUFJLEVBQWMsQ0FBQztnQkFDbkMsSUFBRyxxQkFBTyxDQUFDLFVBQVUsQ0FBQyxHQUFHLEVBQUUsR0FBRyxFQUFFLE9BQU8sRUFBRSxtQkFBSyxDQUFDLFFBQVEsRUFBRSxJQUFJLENBQUMsU0FBUyxDQUFDLEVBQUU7b0JBQ3RFLE9BQU8sQ0FBQyxHQUFHLENBQUMsR0FBRyxPQUFPLENBQUMsS0FBSyxDQUFDLFNBQVMsQ0FBQyxJQUFJLElBQUksT0FBTyxDQUFDLEtBQUssQ0FBQyxTQUFTLENBQUMsVUFBVSxDQUFDLEtBQUssSUFBSSxJQUFJLENBQUMsU0FBUyxFQUFFLENBQUMsQ0FBQztvQkFDN0csTUFBTSxVQUFVLEdBQUcsT0FBTyxDQUFDLEtBQUssQ0FBQyxTQUFTLENBQUM7b0JBQzNDLFVBQVUsQ0FBQyxRQUFRLEdBQUcsSUFBSSxxQkFBTyxDQUFDLE9BQU8sQ0FBQyxLQUFLLENBQUMsS0FBSyxDQUFDLENBQUMsRUFBRSxPQUFPLENBQUMsS0FBSyxDQUFDLEtBQUssQ0FBQyxDQUFDLEVBQUUsVUFBVSxDQUFDLFFBQVEsQ0FBQyxDQUFDLENBQUMsQ0FBQztpQkFDMUc7YUFDSjtTQUNKO0lBQ0wsQ0FBQztDQUVKO0FBekNELHNDQXlDQyJ9","assetPath":"Assets/ZepetoScripts/RenderCaremaManager.ts","manifest":{"properties":[{"assembly":"ZEPETO.World","name":"multiplay","type":"ZEPETO.World.ZepetoWorldMultiplay","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]}],"name":"RenderCaremaManager","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: 6cf328f644e18a3a8d8287e5cab9995a
+  onlyWriteTrigger: 0

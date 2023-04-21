@@ -1,0 +1,31 @@
+fileFormatVersion: 2
+guid: 50a217afa90aad24188bb5fae20400e3
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nclass
+    IWPManager extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    /* IWP */\r\n   
+    OnPurchaseComplete(item) {\r\n        console.log(\"OnPurchaseComplete\");\r\n       
+    console.log(`item.itemId : ${item.itemId}`);\r\n        console.log(`item.name
+    : ${item.name}`);\r\n        console.log(`item.description : ${item.description}`);\r\n       
+    console.log(`item.price : ${item.price}`);\r\n    }\r\n    OnPurchaseFailed(error)
+    {\r\n        console.log(`OnPurchaseFailed : ${error}`);\r\n    }\r\n}\r\nexports.default
+    = IWPManager;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiSVdQTWFuYWdlci5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIklXUE1hbmFnZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFDQSxpREFBcUQ7QUFFckQsTUFBcUIsVUFBVyxTQUFRLHFDQUFxQjtJQUV6RCxTQUFTO0lBQ1Qsa0JBQWtCLENBQUMsSUFBVztRQUMxQixPQUFPLENBQUMsR0FBRyxDQUFDLG9CQUFvQixDQUFDLENBQUM7UUFDbEMsT0FBTyxDQUFDLEdBQUcsQ0FBQyxpQkFBaUIsSUFBSSxDQUFDLE1BQU0sRUFBRSxDQUFDLENBQUM7UUFDNUMsT0FBTyxDQUFDLEdBQUcsQ0FBQyxlQUFlLElBQUksQ0FBQyxJQUFJLEVBQUUsQ0FBQyxDQUFDO1FBQ3hDLE9BQU8sQ0FBQyxHQUFHLENBQUMsc0JBQXNCLElBQUksQ0FBQyxXQUFXLEVBQUUsQ0FBQyxDQUFDO1FBQ3RELE9BQU8sQ0FBQyxHQUFHLENBQUMsZ0JBQWdCLElBQUksQ0FBQyxLQUFLLEVBQUUsQ0FBQyxDQUFDO0lBQzlDLENBQUM7SUFFRCxnQkFBZ0IsQ0FBQyxLQUFjO1FBQzNCLE9BQU8sQ0FBQyxHQUFHLENBQUMsc0JBQXNCLEtBQUssRUFBRSxDQUFDLENBQUM7SUFDL0MsQ0FBQztDQUVKO0FBZkQsNkJBZUMifQ==","assetPath":"Assets/ZepetoScripts/MultiplaySync/Managers/IWPManager.ts","manifest":{"properties":[],"name":"IWPManager","description":""},"isCompiled":true}'
+  typescriptHash: 8a31c2b1ada1348ccefaddee986475da
+  onlyWriteTrigger: 0

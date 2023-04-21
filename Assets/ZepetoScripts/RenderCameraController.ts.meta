@@ -1,0 +1,53 @@
+fileFormatVersion: 2
+guid: 7a1197b00c0f4b24a9079af47ab1d1f0
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nexports.RenderMode = void 0;\r\nconst ZEPETO_Character_Controller_1
+    = require(\"ZEPETO.Character.Controller\");\r\nconst ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nclass
+    RenderCameraController extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n   
+    constructor() {\r\n        super(...arguments);\r\n        this.renderChange
+    = RenderMode.Default;\r\n    }\r\n    Start() {\r\n        if (this.renderButton)
+    {\r\n            this.renderButton.onClick.AddListener(() => {\r\n               
+    switch (+this.renderChange) {\r\n                    case RenderMode.Default:
+    // to Edit mode\r\n                        ZEPETO_Character_Controller_1.ZepetoPlayers.instance.ZepetoCamera.gameObject.SetActive(false);\r\n                       
+    this.renderEditCamera.gameObject.SetActive(true);\r\n                       
+    this.renderChange = RenderMode.Edit_Mode;\r\n                        this.ControllerSet(false);\r\n                       
+    console.log(`Change to Render Edit Mode`);\r\n                        break;\r\n                   
+    case RenderMode.Edit_Mode: // to Image mode\r\n                        ZEPETO_Character_Controller_1.ZepetoPlayers.instance.ZepetoCamera.gameObject.SetActive(true);\r\n                       
+    this.renderTextureCamera.gameObject.SetActive(true);\r\n                       
+    this.renderEditCamera.gameObject.SetActive(false);\r\n                       
+    this.renderChange = RenderMode.Image_Mode;\r\n                        this.ControllerSet(false);\r\n                       
+    console.log(`Change to Render Image Mode`);\r\n                        break;\r\n                   
+    case RenderMode.Image_Mode: // to Default\r\n                        ZEPETO_Character_Controller_1.ZepetoPlayers.instance.ZepetoCamera.gameObject.SetActive(true);\r\n                       
+    this.renderTextureCamera.gameObject.SetActive(false);\r\n                       
+    this.renderEditCamera.gameObject.SetActive(false);\r\n                       
+    this.renderChange = RenderMode.Default;\r\n                        this.ControllerSet(true);\r\n                       
+    console.log(`Change to Render Default`);\r\n                        break;\r\n               
+    }\r\n            });\r\n        }\r\n    }\r\n    /* Controller Set */\r\n   
+    ControllerSet(controlable) {\r\n        const controller = ZEPETO_Character_Controller_1.ZepetoPlayers.instance.gameObject.GetComponentInChildren($typeof(ZEPETO_Character_Controller_1.UIZepetoPlayerControl));\r\n       
+    if (controlable) {\r\n            controller.gameObject.SetActive(controlable);\r\n       
+    }\r\n        else {\r\n            controller.gameObject.SetActive(controlable);\r\n       
+    }\r\n    }\r\n}\r\nexports.default = RenderCameraController;\r\nvar RenderMode;\r\n(function
+    (RenderMode) {\r\n    RenderMode[RenderMode[\"Default\"] = 0] = \"Default\";\r\n   
+    RenderMode[RenderMode[\"Edit_Mode\"] = 1] = \"Edit_Mode\";\r\n    RenderMode[RenderMode[\"Image_Mode\"]
+    = 2] = \"Image_Mode\";\r\n})(RenderMode = exports.RenderMode || (exports.RenderMode
+    = {}));\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiUmVuZGVyQ2FtZXJhQ29udHJvbGxlci5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIlJlbmRlckNhbWVyYUNvbnRyb2xsZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7O0FBRUEsNkVBQW1GO0FBQ25GLGlEQUFxRDtBQUVyRCxNQUFxQixzQkFBdUIsU0FBUSxxQ0FBcUI7SUFBekU7O1FBS1ksaUJBQVksR0FBZSxVQUFVLENBQUMsT0FBTyxDQUFDO0lBNkMxRCxDQUFDO0lBM0NHLEtBQUs7UUFDRCxJQUFHLElBQUksQ0FBQyxZQUFZLEVBQUU7WUFDbEIsSUFBSSxDQUFDLFlBQVksQ0FBQyxPQUFPLENBQUMsV0FBVyxDQUFDLEdBQUcsRUFBRTtnQkFDdkMsUUFBTyxDQUFDLElBQUksQ0FBQyxZQUFZLEVBQUU7b0JBQ3ZCLEtBQUssVUFBVSxDQUFDLE9BQU8sRUFBRSxlQUFlO3dCQUNwQywyQ0FBYSxDQUFDLFFBQVEsQ0FBQyxZQUFZLENBQUMsVUFBVSxDQUFDLFNBQVMsQ0FBQyxLQUFLLENBQUMsQ0FBQzt3QkFDaEUsSUFBSSxDQUFDLGdCQUFnQixDQUFDLFVBQVUsQ0FBQyxTQUFTLENBQUMsSUFBSSxDQUFDLENBQUM7d0JBQ2pELElBQUksQ0FBQyxZQUFZLEdBQUcsVUFBVSxDQUFDLFNBQVMsQ0FBQzt3QkFDekMsSUFBSSxDQUFDLGFBQWEsQ0FBQyxLQUFLLENBQUMsQ0FBQzt3QkFDMUIsT0FBTyxDQUFDLEdBQUcsQ0FBQyw0QkFBNEIsQ0FBQyxDQUFDO3dCQUMxQyxNQUFNO29CQUVWLEtBQUssVUFBVSxDQUFDLFNBQVMsRUFBRSxnQkFBZ0I7d0JBQ3ZDLDJDQUFhLENBQUMsUUFBUSxDQUFDLFlBQVksQ0FBQyxVQUFVLENBQUMsU0FBUyxDQUFDLElBQUksQ0FBQyxDQUFDO3dCQUMvRCxJQUFJLENBQUMsbUJBQW1CLENBQUMsVUFBVSxDQUFDLFNBQVMsQ0FBQyxJQUFJLENBQUMsQ0FBQzt3QkFDcEQsSUFBSSxDQUFDLGdCQUFnQixDQUFDLFVBQVUsQ0FBQyxTQUFTLENBQUMsS0FBSyxDQUFDLENBQUM7d0JBQ2xELElBQUksQ0FBQyxZQUFZLEdBQUcsVUFBVSxDQUFDLFVBQVUsQ0FBQzt3QkFDMUMsSUFBSSxDQUFDLGFBQWEsQ0FBQyxLQUFLLENBQUMsQ0FBQzt3QkFDMUIsT0FBTyxDQUFDLEdBQUcsQ0FBQyw2QkFBNkIsQ0FBQyxDQUFDO3dCQUMzQyxNQUFNO29CQUVWLEtBQUssVUFBVSxDQUFDLFVBQVUsRUFBRSxhQUFhO3dCQUNyQywyQ0FBYSxDQUFDLFFBQVEsQ0FBQyxZQUFZLENBQUMsVUFBVSxDQUFDLFNBQVMsQ0FBQyxJQUFJLENBQUMsQ0FBQzt3QkFDL0QsSUFBSSxDQUFDLG1CQUFtQixDQUFDLFVBQVUsQ0FBQyxTQUFTLENBQUMsS0FBSyxDQUFDLENBQUM7d0JBQ3JELElBQUksQ0FBQyxnQkFBZ0IsQ0FBQyxVQUFVLENBQUMsU0FBUyxDQUFDLEtBQUssQ0FBQyxDQUFDO3dCQUNsRCxJQUFJLENBQUMsWUFBWSxHQUFHLFVBQVUsQ0FBQyxPQUFPLENBQUM7d0JBQ3ZDLElBQUksQ0FBQyxhQUFhLENBQUMsSUFBSSxDQUFDLENBQUM7d0JBQ3pCLE9BQU8sQ0FBQyxHQUFHLENBQUMsMEJBQTBCLENBQUMsQ0FBQzt3QkFDeEMsTUFBTTtpQkFDYjtZQUNMLENBQUMsQ0FBQyxDQUFDO1NBQ047SUFDTCxDQUFDO0lBRUQsb0JBQW9CO0lBQ1osYUFBYSxDQUFDLFdBQW1CO1FBQ3JDLE1BQU0sVUFBVSxHQUFHLDJDQUFhLENBQUMsUUFBUSxDQUFDLFVBQVUsQ0FBQyxzQkFBc0IsU0FBQyxtREFBcUIsRUFBRyxDQUFDO1FBQ3JHLElBQUcsV0FBVyxFQUFFO1lBQ1osVUFBVSxDQUFDLFVBQVUsQ0FBQyxTQUFTLENBQUMsV0FBVyxDQUFDLENBQUM7U0FDaEQ7YUFBTTtZQUNILFVBQVUsQ0FBQyxVQUFVLENBQUMsU0FBUyxDQUFDLFdBQVcsQ0FBQyxDQUFDO1NBQ2hEO0lBQ0wsQ0FBQztDQUNKO0FBbERELHlDQWtEQztBQUVELElBQVksVUFFWDtBQUZELFdBQVksVUFBVTtJQUNsQixpREFBTyxDQUFBO0lBQUUscURBQVMsQ0FBQTtJQUFFLHVEQUFVLENBQUE7QUFDbEMsQ0FBQyxFQUZXLFVBQVUsR0FBVixrQkFBVSxLQUFWLGtCQUFVLFFBRXJCIn0=","assetPath":"Assets/ZepetoScripts/RenderCameraController.ts","manifest":{"properties":[{"assembly":"UnityEngine.CoreModule","name":"renderEditCamera","type":"UnityEngine.Camera","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"renderTextureCamera","type":"UnityEngine.Camera","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.UI","name":"renderButton","type":"UnityEngine.UI.Button","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]}],"name":"RenderCameraController","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: b97aad7c8f5198a0cdbb93d8412c77ed
+  onlyWriteTrigger: 0

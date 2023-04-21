@@ -1,0 +1,61 @@
+fileFormatVersion: 2
+guid: 945df6a9b1bea984e85a1249fe7842ce
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst UnityEngine_1 = require(\"UnityEngine\");\r\nconst
+    UnityEngine_UI_1 = require(\"UnityEngine.UI\");\r\nconst ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst
+    ZEPETO_World_1 = require(\"ZEPETO.World\");\r\nclass PlayerKickManager extends
+    ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    constructor() {\r\n        super(...arguments);\r\n       
+    this.buttons = [];\r\n    }\r\n    Start() {\r\n        if (!this.multiplay)\r\n           
+    this.multiplay = UnityEngine_1.GameObject.FindObjectOfType($typeof(ZEPETO_World_1.ZepetoWorldMultiplay));\r\n       
+    this.multiplay.add_RoomJoined((room) => {\r\n            this.room = room;\r\n       
+    }\r\n        /* Player Kick */\r\n        );\r\n        /* Player Kick */\r\n       
+    if (this.buttonPlayers) {\r\n            this.buttonPlayers.onClick.AddListener(()
+    => {\r\n                this.playersPanel.SetActive(!this.playersPanel.activeSelf);\r\n           
+    });\r\n        }\r\n        if (!this.playersPanel)\r\n            return;\r\n       
+    if (!this.buttonPrefabs)\r\n            return;\r\n        this.contents = this.playersPanel.transform.GetChild(0).GetChild(0).transform;\r\n       
+    for (let i = 0; i < 8; i++) {\r\n            const kickBtn = UnityEngine_1.GameObject.Instantiate(this.buttonPrefabs,
+    UnityEngine_1.Vector3.zero, UnityEngine_1.Quaternion.identity, this.contents);\r\n           
+    kickBtn.gameObject.SetActive(false);\r\n            this.buttons.push(kickBtn.GetComponent($typeof(UnityEngine_UI_1.Button)));\r\n       
+    }\r\n    }\r\n    KickPlayer(userId) {\r\n        console.log(` ++++++++++++++++++++++++++++++++++++++++++++++
+    userId : ${userId} `);\r\n        if (this.room) {\r\n            this.room.Send(\"Kick\",
+    userId);\r\n        }\r\n    }\r\n    PlayerUpdate(currentPlayers) {\r\n       
+    const ids = [];\r\n        for (const currentPlayer of currentPlayers.values())
+    {\r\n            ids.push(currentPlayer.zepetoUserId);\r\n        }\r\n       
+    for (const btn of this.buttons) {\r\n            btn.gameObject.SetActive(false);\r\n           
+    btn.onClick.RemoveAllListeners();\r\n        }\r\n        ZEPETO_World_1.ZepetoWorldHelper.GetUserInfo(ids,
+    (info) => {\r\n            for (let i = 0; i < info.length; i++) {\r\n               
+    console.log(`userId : ${info[i].userOid}, name : ${info[i].name}, zepetoId :
+    ${info[i].zepetoId}`);\r\n                ZEPETO_World_1.ZepetoWorldHelper.GetProfileTexture(info[i].userOid,
+    (texture) => {\r\n                    for (const trns of this.buttons[i].GetComponentsInChildren($typeof(UnityEngine_1.Transform)))
+    {\r\n                        switch (trns.name) {\r\n                           
+    case \"Text\":\r\n                                const text = trns.GetComponent($typeof(UnityEngine_UI_1.Text));\r\n                               
+    text.text = info[i].name;\r\n                                break;\r\n                           
+    case \"Image\":\r\n                                const image = trns.GetComponent($typeof(UnityEngine_UI_1.Image));\r\n                               
+    let rect = new UnityEngine_1.Rect(0, 0, texture.width, texture.height);\r\n                               
+    image.sprite = UnityEngine_1.Sprite.Create(texture, rect, new UnityEngine_1.Vector2(0.5,
+    0.5));\r\n                                break;\r\n                        }\r\n                   
+    }\r\n                    this.buttons[i].gameObject.SetActive(true);\r\n                   
+    this.buttons[i].onClick.AddListener(() => this.KickPlayer(info[i].userOid));\r\n               
+    }, (error) => {\r\n                    console.log(error);\r\n               
+    });\r\n            }\r\n        }, (error) => {\r\n            console.log(error);\r\n       
+    });\r\n    }\r\n}\r\nexports.default = PlayerKickManager;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiUGxheWVyS2lja01hbmFnZXIuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJQbGF5ZXJLaWNrTWFuYWdlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLDZDQUFvSDtBQUNwSCxtREFBcUQ7QUFHckQsaURBQXFEO0FBQ3JELCtDQUE4RTtBQUU5RSxNQUFxQixpQkFBa0IsU0FBUSxxQ0FBcUI7SUFBcEU7O1FBUVksWUFBTyxHQUFZLEVBQUUsQ0FBQztJQTRFbEMsQ0FBQztJQTFFRyxLQUFLO1FBQ0QsSUFBRyxDQUFDLElBQUksQ0FBQyxTQUFTO1lBQ2QsSUFBSSxDQUFDLFNBQVMsR0FBRyx3QkFBVSxDQUFDLGdCQUFnQixTQUFDLG1DQUFvQixFQUFHLENBQUM7UUFFekUsSUFBSSxDQUFDLFNBQVMsZ0JBQWUsQ0FBQyxJQUFVLEVBQUUsRUFBRTtZQUN4QyxJQUFJLENBQUMsSUFBSSxHQUFHLElBQUksQ0FBQztRQUNyQixDQUFDO1FBRUQsaUJBQWlCO1VBRmhCO1FBRUQsaUJBQWlCO1FBQ2pCLElBQUcsSUFBSSxDQUFDLGFBQWEsRUFBRTtZQUNuQixJQUFJLENBQUMsYUFBYSxDQUFDLE9BQU8sQ0FBQyxXQUFXLENBQUUsR0FBRyxFQUFFO2dCQUN6QyxJQUFJLENBQUMsWUFBWSxDQUFDLFNBQVMsQ0FBQyxDQUFDLElBQUksQ0FBQyxZQUFZLENBQUMsVUFBVSxDQUFDLENBQUM7WUFDL0QsQ0FBQyxDQUFDLENBQUM7U0FDTjtRQUVELElBQUcsQ0FBQyxJQUFJLENBQUMsWUFBWTtZQUNqQixPQUFPO1FBQ1gsSUFBRyxDQUFDLElBQUksQ0FBQyxhQUFhO1lBQ2xCLE9BQU87UUFFWCxJQUFJLENBQUMsUUFBUSxHQUFHLElBQUksQ0FBQyxZQUFZLENBQUMsU0FBUyxDQUFDLFFBQVEsQ0FBQyxDQUFDLENBQUMsQ0FBQyxRQUFRLENBQUMsQ0FBQyxDQUFDLENBQUMsU0FBUyxDQUFDO1FBQzlFLEtBQUksSUFBSSxDQUFDLEdBQUMsQ0FBQyxFQUFFLENB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","assetPath":"Assets/ZepetoScripts/MultiplaySync/Managers/PlayerKickManager.ts","manifest":{"properties":[{"assembly":"ZEPETO.World","name":"multiplay","type":"ZEPETO.World.ZepetoWorldMultiplay","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"","name":"room","type":"ZEPETO.Multiplay.Room","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.UI","name":"buttonPlayers","type":"UnityEngine.UI.Button","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.UI","name":"buttonPrefabs","type":"UnityEngine.UI.Button","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"playersPanel","type":"UnityEngine.GameObject","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]}],"name":"PlayerKickManager","description":""},"isCompiled":true}'
+  typescriptHash: b825da49954e237e0bf2291e354d89b4
+  onlyWriteTrigger: 0

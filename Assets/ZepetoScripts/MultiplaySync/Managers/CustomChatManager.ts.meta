@@ -1,0 +1,45 @@
+fileFormatVersion: 2
+guid: efaad3ee0efdb754dba44a8db5f671d9
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst UnityEngine_1 = require(\"UnityEngine\");\r\nconst
+    ZEPETO_Chat_1 = require(\"ZEPETO.Chat\");\r\nconst ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nclass
+    CustomChatManager extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    constructor()
+    {\r\n        super(...arguments);\r\n        this.customChatBtns = [];\r\n       
+    this.onOffer = true;\r\n    }\r\n    Start() {\r\n        // When Button click\r\n       
+    for (const btn of this.customChatBtns) {\r\n            btn.onClick.AddListener(()
+    => {\r\n                const names = btn.name.split(\"_\");\r\n               
+    ZEPETO_Chat_1.ZepetoChat.Send(names[names.length - 1]);\r\n            });\r\n       
+    }\r\n        this.sendChatBtn.onClick.AddListener(() => {\r\n            this.resultText.color
+    = UnityEngine_1.Color.black;\r\n            const inputMsg = this.inputChatbox.text;\r\n           
+    ZEPETO_Chat_1.ZepetoChat.Send(inputMsg);\r\n            this.inputChatbox.text
+    = \"\";\r\n        });\r\n        this.customChatButton.onClick.AddListener(()
+    => {\r\n            this.customChatPanel.SetActive(!this.customChatPanel.activeSelf);\r\n           
+    this.resultText.text = \"\";\r\n        });\r\n        this.chatOnOffButton.onClick.AddListener(()
+    => {\r\n            this.onOffer = !this.onOffer;\r\n            ZEPETO_Chat_1.ZepetoChat.SetActiveChatUI(this.onOffer);\r\n       
+    });\r\n        // Receive message\r\n        ZEPETO_Chat_1.ZepetoChat.OnReceivedMessage.AddListener(msg
+    => {\r\n            const userMsg = msg;\r\n            // this.resultText.text
+    = `[USER - ${userMsg.userName}] - ${userMsg.message}`;\r\n            if (userMsg.isFiltered)
+    {\r\n                this.resultText.text = `???`;\r\n            }\r\n           
+    else {\r\n                this.resultText.text = `${userMsg.message}`;\r\n           
+    }\r\n        });\r\n    }\r\n}\r\nexports.default = CustomChatManager;\r\n//#
+    sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQ3VzdG9tQ2hhdE1hbmFnZXIuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJDdXN0b21DaGF0TWFuYWdlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLDZDQUFnRDtBQUVoRCw2Q0FBc0Q7QUFDdEQsaURBQXFEO0FBRXJELE1BQXFCLGlCQUFrQixTQUFRLHFDQUFxQjtJQUFwRTs7UUFJVyxtQkFBYyxHQUFhLEVBQUUsQ0FBQztRQU03QixZQUFPLEdBQUcsSUFBSSxDQUFDO0lBdUMzQixDQUFDO0lBckNHLEtBQUs7UUFDRCxvQkFBb0I7UUFDcEIsS0FBSSxNQUFNLEdBQUcsSUFBSSxJQUFJLENBQUMsY0FBYyxFQUFFO1lBQ2xDLEdBQUcsQ0FBQyxPQUFPLENBQUMsV0FBVyxDQUFDLEdBQUcsRUFBRTtnQkFDekIsTUFBTSxLQUFLLEdBQUcsR0FBRyxDQUFDLElBQUksQ0FBQyxLQUFLLENBQUMsR0FBRyxDQUFDLENBQUM7Z0JBQ2xDLHdCQUFVLENBQUMsSUFBSSxDQUFDLEtBQUssQ0FBQyxLQUFLLENBQUMsTUFBTSxHQUFDLENBQUMsQ0FBQyxDQUFDLENBQUM7WUFDM0MsQ0FBQyxDQUFDLENBQUM7U0FDTjtRQUNELElBQUksQ0FBQyxXQUFXLENBQUMsT0FBTyxDQUFDLFdBQVcsQ0FBQyxHQUFHLEVBQUU7WUFDdEMsSUFBSSxDQUFDLFVBQVUsQ0FBQyxLQUFLLEdBQUcsbUJBQUssQ0FBQyxLQUFLLENBQUM7WUFDcEMsTUFBTSxRQUFRLEdBQUcsSUFBSSxDQUFDLFlBQVksQ0FBQyxJQUFJLENBQUM7WUFDeEMsd0JBQVUsQ0FBQyxJQUFJLENBQUMsUUFBUSxDQUFDLENBQUM7WUFDMUIsSUFBSSxDQUFDLFlBQVksQ0FBQyxJQUFJLEdBQUcsRUFBRSxDQUFDO1FBQ2hDLENBQUMsQ0FBQyxDQUFDO1FBRUgsSUFBSSxDQUFDLGdCQUFnQixDQUFDLE9BQU8sQ0FBQyxXQUFXLENBQUMsR0FBRyxFQUFFO1lBQzNDLElBQUksQ0FBQyxlQUFlLENBQUMsU0FBUyxDQUFDLENBQUMsSUFBSSxDQUFDLGVBQWUsQ0FBQyxVQUFVLENBQUMsQ0FBQztZQUNqRSxJQUFJLENBQUMsVUFBVSxDQUFDLElBQUksR0FBRyxFQUFFLENBQUM7UUFDOUIsQ0FBQyxDQUFDLENBQUM7UUFFSCxJQUFJLENBQUMsZUFBZSxDQUFDLE9BQU8sQ0FBQyxXQUFXLENBQUMsR0FBRyxFQUFFO1lBQzFDLElBQUksQ0FBQyxPQUFPLEdBQUcsQ0FBQyxJQUFJLENBQUMsT0FBTyxDQUFDO1lBQzdCLHdCQUFVLENBQUMsZUFBZSxDQUFDLElBQUksQ0FBQyxPQUFPLENBQUMsQ0FBQztRQUM3QyxDQUFDLENBQUMsQ0FBQztRQUVILGtCQUFrQjtRQUNsQix3QkFBVSxDQUFDLGlCQUFpQixDQUFDLFdBQVcsQ0FBQyxHQUFHLENBQUMsRUFBRTtZQUMzQyxNQUFNLE9BQU8sR0FBRyxHQUFrQixDQUFDO1lBQ25DLDhFQUE4RTtZQUM5RSxJQUFHLE9BQU8sQ0FBQyxVQUFVLEVBQUU7Z0JBQ25CLElBQUksQ0FBQyxVQUFVLENBQUMsSUFBSSxHQUFHLEtBQUssQ0FBQzthQUNoQztpQkFBTTtnQkFDSCxJQUFJLENBQUMsVUFBVSxDQUFDLElBQUksR0FBRyxHQUFHLE9BQU8sQ0FBQyxPQUFPLEVBQUUsQ0FBQzthQUMvQztRQUNMLENBQUMsQ0FBQyxDQUFDO0lBQ1AsQ0FBQztDQUVKO0FBakRELG9DQWlEQyJ9","assetPath":"Assets/ZepetoScripts/MultiplaySync/Managers/CustomChatManager.ts","manifest":{"properties":[{"assembly":"UnityEngine.CoreModule","name":"customChatPanel","type":"UnityEngine.GameObject","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.UI","name":"customChatButton","type":"UnityEngine.UI.Button","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.UI","name":"customChatBtns","type":"UnityEngine.UI.Button[]","isArray":true,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.UI","name":"sendChatBtn","type":"UnityEngine.UI.Button","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.UI","name":"resultText","type":"UnityEngine.UI.Text","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.UI","name":"inputChatbox","type":"UnityEngine.UI.InputField","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.UI","name":"chatOnOffButton","type":"UnityEngine.UI.Button","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]}],"name":"CustomChatManager","description":""},"isCompiled":true}'
+  typescriptHash: 5472f73df8e389d01929a6b22bb78f36
+  onlyWriteTrigger: 0

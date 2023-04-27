@@ -6,7 +6,6 @@ declare module "ZEPETO.Multiplay.Schema" {
 	interface State extends Schema {
 		players: MapSchema<Player>;
 		SyncTransforms: MapSchema<SyncTransform>;
-		equipDatas: MapSchema<EquipData>;
 	}
 	class Player extends Schema {
 		sessionId: string;
@@ -15,8 +14,6 @@ declare module "ZEPETO.Multiplay.Schema" {
 		playerAdditionalValue: PlayerAdditionalValue;
 		animationParam: ZepetoAnimationParam;
 		gestureName: string;
-		score: number;
-		visit: number;
 	}
 	class sVector3 extends Schema {
 		x: number;
@@ -43,13 +40,6 @@ declare module "ZEPETO.Multiplay.Schema" {
 		additionalRunSpeed: number;
 		additionalJumpPower: number;
 	}
-	class EquipData extends Schema {
-		key: string;
-		sessionId: string;
-		itemName: string;
-		prevItemName: string;
-		bone: number;
-	}
 	class ZepetoAnimationParam extends Schema {
 		State: number;
 		MoveState: number;
@@ -59,6 +49,5 @@ declare module "ZEPETO.Multiplay.Schema" {
 		FallSpeed: number;
 		Acceleration: number;
 		MoveProgress: number;
-		IsSit: boolean;
 	}
 }

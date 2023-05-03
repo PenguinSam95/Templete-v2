@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 623760165503242099}
   - component: {fileID: 623760165503242098}
-  - component: {fileID: 2730639081572864490}
+  - component: {fileID: 6624253008642381814}
   m_Layer: 0
   m_Name: ZepetoAnalytics
   m_TagString: Untagged
-  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -45,11 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  isDebugMode: 0
+  isDebugMode: 1
   googleAnalyticsSetting:
     apiSecret: Yyp_ohi0Rxm3jAlb7yYvhA
     measurementId: G-7S1PKC3487
---- !u!114 &2730639081572864490
+--- !u!114 &6624253008642381814
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -63,9 +63,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   applyRootMotion: 0
   script:
-    keys: []
-    unityValues: []
-    values: []
+    keys:
+    - multiplay
+    - room
+    unityValues:
+    - {fileID: 0}
+    - {fileID: 0}
+    values:
+    - 
+    - 
     unityArrayValues: []
     arrayValues: []
     script: {fileID: 4458252877524076426, guid: 4e0351a6777b6904cb9e6d12b74ce3a7, type: 3}

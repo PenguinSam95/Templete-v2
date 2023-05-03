@@ -63,13 +63,9 @@ export default class ChairSit extends ZepetoScriptBehaviour {
         if(this.IsSit) return;
         this.IsSit = true;
         this.ButtonOnOff(false);
-
-        if(!ZepetoPlayers.instance.HasPlayer(sessionId) && sessionId != this.room.SessionId) return; // isLocal
+        
+        if(!ZepetoPlayers.instance.HasPlayer(sessionId)) return;
         this.StartCoroutine(this.StartContinuousAnimation(sessionId));
-    }
-
-    private SitControl(sit:boolean) {
-        ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character.ZepetoAnimator.SetBool("isSit", sit);
     }
 
     private * StartContinuousAnimation(sessionId:string) {
@@ -82,7 +78,7 @@ export default class ChairSit extends ZepetoScriptBehaviour {
         while(anim.GetBool("isSit")) {
             yield null;
         }
-        this.SitControl(true)
+        anim.SetBool("isSit", true);
         while(true) {
             if(player.tryJump || player.tryMove) {
                 this.PlayerSendSitUp()
@@ -106,10 +102,10 @@ export default class ChairSit extends ZepetoScriptBehaviour {
         this.IsSit = false;
         this.ButtonOnOff(true);
 
-        if(!ZepetoPlayers.instance.HasPlayer(sessionId) && sessionId != this.room.SessionId) return; // isLocal
+        if(!ZepetoPlayers.instance.HasPlayer(sessionId)) return;
         const player = ZepetoPlayers.instance.GetPlayer(sessionId).character;
         player.transform.parent = null;
-        this.SitControl(false);
+        player.ZepetoAnimator.SetBool("isSit", false);
     }
 }
 

@@ -1,12 +1,15 @@
 import {ZepetoScriptBehaviour} from 'ZEPETO.Script'
 import {RoomBase, RoomData} from 'ZEPETO.Multiplay';
 import {ZepetoWorldMultiplay} from "ZEPETO.World";
-import {CharacterJumpState, CharacterMoveState, CharacterState, ZepetoPlayer} from 'ZEPETO.Character.Controller';
+import {CharacterJumpState, CharacterMoveState, CharacterState, ZepetoPlayer, ZepetoPlayers} from 'ZEPETO.Character.Controller';
 import { RuntimeAnimatorController, Object, Animator, AnimatorClipInfo, Resources,CharacterController, AnimationClip, WaitForSeconds, AnimatorOverrideController, Mathf, WaitForEndOfFrame} from 'UnityEngine';
 import {Player} from 'ZEPETO.Multiplay.Schema';
 import MultiplayManager from '../Common/MultiplayManager';
 import TransformSyncHelper from '../Transform/TransformSyncHelper';
 import ZepetoPlayersManager from './ZepetoPlayersManager';
+import CameraManager from '../Managers/CameraManager';
+import SyncIndexManager from '../Common/SyncIndexManager';
+import UIManager from '../Managers/UIManager';
 
 export default class PlayerSync extends ZepetoScriptBehaviour {
     @HideInInspector() public isLocal: boolean = false;
@@ -27,8 +30,11 @@ export default class PlayerSync extends ZepetoScriptBehaviour {
         this._multiplay = Object.FindObjectOfType<ZepetoWorldMultiplay>();
         this._room = this._multiplay.Room;
         if (this.isLocal) {
+            console.log(` **************** isLocal? ${this.isLocal} `);
+            
             this.StartCoroutine(this.SendLocalPlayer(this._tick));
         } else{
+            console.log(` **************** isLocal? ${this.isLocal} `);
             this.player.OnChange += (ChangeValue) => this.OnChangedPlayer();
 
             //If this is not a local character, do not use State Machine.
@@ -117,10 +123,18 @@ export default class PlayerSync extends ZepetoScriptBehaviour {
 
     //isLocal(When it's my character)
     private* SendLocalPlayer(tick: number) {
+        console.log(` *********** SendLocalPlayer `);
         const pastIdleCountMax:number = 10;
         let pastIdleCount:number = 0;
+        const cam = ZepetoPlayers.instance.ZepetoCamera.camera;
+        console.log(` *********** cam ${cam} `);
+        const _cameraCon = cam.gameObject.GetComponent<CameraManager>();
+        if(_cameraCon == null) {
+            cam.gameObject.AddComponent<CameraManager>();
+            console.log(` *********** AddComponent CameraManager `);
+        }
         
-        while (true) {
+        while(true) {
             const state = this._animator.GetInteger("State");
             // Idle status is sent only once.
             if(state != CharacterState.Idle || pastIdleCount < pastIdleCountMax) {

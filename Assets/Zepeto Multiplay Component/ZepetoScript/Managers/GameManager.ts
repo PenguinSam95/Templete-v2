@@ -1,7 +1,8 @@
-import { BoxCollider, Camera, GameObject, HumanBodyBones, Transform, WaitForSeconds } from 'UnityEngine';
+import { BoxCollider, Camera, GameObject, HumanBodyBones, MeshRenderer, Quaternion, Transform, WaitForSeconds } from 'UnityEngine';
 import { Button } from 'UnityEngine.UI';
 import { ZepetoPlayers } from 'ZEPETO.Character.Controller';
 import { Room, RoomData } from 'ZEPETO.Multiplay';
+import { Player } from 'ZEPETO.Multiplay.Schema';
 import { ZepetoScriptBehaviour } from 'ZEPETO.Script'
 import { ZepetoWorldMultiplay } from 'ZEPETO.World';
 import SyncIndexManager from '../Common/SyncIndexManager';
@@ -27,11 +28,13 @@ export default class GameManager extends ZepetoScriptBehaviour {
         return this._instance;
     }
 
+    /* GameManagers Default Properties */
     public multiplay: ZepetoWorldMultiplay;
     public room: Room;
     private animatorSyncHelpers: AnimatorSyncHelper[] = [];
     private transformSyncs: TransformSyncHelper[] = [];
     private doTWeenSyncs: DOTWeenSyncHelper[] = [];
+    private player: Player;
 
     private Awake() {
         if (GameManager._instance !== null && GameManager._instance !== this) {
@@ -48,9 +51,6 @@ export default class GameManager extends ZepetoScriptBehaviour {
         
         this.multiplay.RoomJoined += (room: Room) => {
             this.room = room;
-            this.room.AddMessageHandler("Something", (something:string) => {
-                console.log(something);
-            });
         }
         this.StartCoroutine(this.StartLoading());
 
@@ -110,32 +110,19 @@ export default class GameManager extends ZepetoScriptBehaviour {
         const data = new RoomData();
         switch (+buttonType){
             case ButtonType.Chair:
-                console.log(`ButtonType.Chair ${btn.name} ${target}`);
                 const chairSit = target.GetComponent<ChairSit>();
                 if(!chairSit) return;
                 data.Add("isSit", true);
                 data.Add("chairId", chairSit.Id);
-                serverSender = "ChairSit";
-                break;
-
-            case ButtonType.EquipHead:
-                data.Add("name", target.name);
-                data.Add("attach", HumanBodyBones.Head);
-                serverSender = "Equip";
-                break;
-
-            case ButtonType.EquipBody:
-                data.Add("name", target.name);
-                data.Add("attach", HumanBodyBones.UpperChest);
-                serverSender = "Equip";
+                serverSender = MESSAGE.ChairSit;
+                this.room.Send(serverSender, data.GetObject());
                 break;
 
             default :
                 console.error(`타입이 설정되지 않은 버튼이 있습니다. ${btn.name}`)
                 break;
         }
-
-        this.room.Send(serverSender, data.GetObject());
+        // this.room.Send(serverSender, data.GetObject());
     }
 
     PlayerSitOut(chair : Transform, player : PlayerSync) {
@@ -147,10 +134,18 @@ export default class GameManager extends ZepetoScriptBehaviour {
         this.room.Send("ChairSit", data.GetObject());
     }
     
+    /* Get Local Player */
+    public SetLocalPlayer(player:Player) {
+        this.player = player;
+    }
 }
 
 export enum ButtonType {
     NULL = -1,
     Chair,
     EquipHead, EquipRightHand, EquipLeftHand, EquipBody,
+}
+
+export enum MESSAGE {
+    ChairSit = "ChairSit",
 }

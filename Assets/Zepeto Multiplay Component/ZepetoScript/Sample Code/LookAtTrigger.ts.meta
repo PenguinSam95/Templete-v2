@@ -19,13 +19,20 @@ ScriptedImporter:
   WrapperFilters: []
   wrapperOutputDirectory: Generated
   compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
-    { value: true });\r\nconst UnityEngine_1 = require(\"UnityEngine\");\r\nconst
-    ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst LookAt_1 = require(\"./LookAt\");\r\nclass
-    LookAtTrigger extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    Start()
-    {\r\n        this.lookAt = this.transform.parent.GetComponentInChildren($typeof(LookAt_1.default));\r\n   
-    }\r\n    OnTriggerEnter(collider) {\r\n        this.lookAt.StartLooking(collider);\r\n   
-    }\r\n    OnTriggerExit(collider) {\r\n        this.lookAt.StopLooking(collider);\r\n   
-    }\r\n}\r\nexports.default = LookAtTrigger;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiTG9va0F0VHJpZ2dlci5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIkxvb2tBdFRyaWdnZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSw2Q0FBdUM7QUFDdkMsaURBQXFEO0FBQ3JELHFDQUE4QjtBQUU5QixNQUFxQixhQUFjLFNBQVEscUNBQXFCO0lBRzVELEtBQUs7UUFDRCxJQUFJLENBQUMsTUFBTSxHQUFHLElBQUksQ0FBQyxTQUFTLENBQUMsTUFBTSxDQUFDLHNCQUFzQixTQUFDLGdCQUFNLEVBQUcsQ0FBQztJQUN6RSxDQUFDO0lBRUQsY0FBYyxDQUFDLFFBQW1CO1FBQzlCLElBQUksQ0FBQyxNQUFNLENBQUMsWUFBWSxDQUFDLFFBQVEsQ0FBQyxDQUFDO0lBQ3ZDLENBQUM7SUFFRCxhQUFhLENBQUMsUUFBbUI7UUFDN0IsSUFBSSxDQUFDLE1BQU0sQ0FBQyxXQUFXLENBQUMsUUFBUSxDQUFDLENBQUM7SUFDdEMsQ0FBQztDQUNKO0FBZEQsZ0NBY0MifQ==","assetPath":"Assets/Zepeto
+    { value: true });\r\nconst __UnityEngine__ = require(\"UnityEngine\");\r\nconst
+    UnityEngine_1 = require(\"UnityEngine\");\r\nconst ZEPETO_Character_Controller_1
+    = require(\"ZEPETO.Character.Controller\");\r\nconst ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst
+    LookAt_1 = require(\"./LookAt\");\r\nclass LookAtTrigger extends ZEPETO_Script_1.ZepetoScriptBehaviour
+    {\r\n    Start() {\r\n        this.lookAt = this.transform.parent.GetComponentInChildren($typeof(LookAt_1.default));\r\n   
+    }\r\n    OnTriggerEnter(collider) {\r\n        if (!ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer)\r\n           
+    return;\r\n        const character = ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character.gameObject;\r\n       
+    if (__UnityEngine__.Object.op_Equality(collider.gameObject, character)) {\r\n           
+    this.lookAt.StartLooking(collider);\r\n        }\r\n    }\r\n    OnTriggerExit(collider)
+    {\r\n        if (!ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer)\r\n           
+    return;\r\n        const character = ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character.gameObject;\r\n       
+    if (__UnityEngine__.Object.op_Equality(collider.gameObject, character)) {\r\n           
+    this.lookAt.StopLooking(collider);\r\n        }\r\n    }\r\n}\r\nexports.default
+    = LookAtTrigger;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiTG9va0F0VHJpZ2dlci5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIkxvb2tBdFRyaWdnZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7O0FBQUEsNkNBQW1EO0FBQ25ELDZFQUE0RDtBQUM1RCxpREFBcUQ7QUFDckQscUNBQThCO0FBRTlCLE1BQXFCLGFBQWMsU0FBUSxxQ0FBcUI7SUFLNUQsS0FBSztRQUNELElBQUksQ0FBQyxNQUFNLEdBQUcsSUFBSSxDQUFDLFNBQVMsQ0FBQyxNQUFNLENBQUMsc0JBQXNCLFNBQUMsZ0JBQU0sRUFBRyxDQUFDO0lBQ3pFLENBQUM7SUFFRCxjQUFjLENBQUMsUUFBbUI7UUFDOUIsSUFBRyxDQUFDLDJDQUFhLENBQUMsUUFBUSxDQUFDLFdBQVc7WUFBRSxPQUFPO1FBQy9DLE1BQU0sU0FBUyxHQUFHLDJDQUFhLENBQUMsUUFBUSxDQUFDLFdBQVcsQ0FBQyxZQUFZLENBQUMsU0FBUyxDQUFDLFVBQVUsQ0FBQztRQUN2RiwyQkFhdStULFdBQVksQ0FiaC9ULFFBQVEsQ0FBQyxVQUFVLEVBQUksU0FBUyxHQUFFO1lBQ2pDLElBQUksQ0FBQyxNQUFNLENBQUMsWUFBWSxDQUFDLFFBQVEsQ0FBQyxDQUFDO1NBQ3RDO0lBQ0wsQ0FBQztJQUVELGFBQWEsQ0FBQyxRQUFtQjtRQUM3QixJQUFHLENBQUMsMkNBQWEsQ0FBQyxRQUFRLENBQUMsV0FBVztZQUFFLE9BQU87UUFDL0MsTUFBTSxTQUFTLEdBQUcsMkNBQWEsQ0FBQyxRQUFRLENBQUMsV0FBVyxDQUFDLFlBQVksQ0FBQyxTQUFTLENBQUMsVUFBVSxDQUFDO1FBQ3ZGLDJCQUt1K1QsV0FBWSxDQUxoL1QsUUFBUSxDQUFDLFVBQVUsRUFBSSxTQUFTLEdBQUU7WUFDakMsSUFBSSxDQUFDLE1BQU0sQ0FBQyxXQUFXLENBQUMsUUFBUSxDQUFDLENBQUM7U0FDckM7SUFFTCxDQUFDO0NBQ0o7QUF6QkQsZ0NBeUJDIn0=","assetPath":"Assets/Zepeto
     Multiplay Component/ZepetoScript/Sample Code/LookAtTrigger.ts","manifest":{"properties":[],"name":"LookAtTrigger","description":"","hasAnimatorMove":false},"isCompiled":true}'
-  typescriptHash: f9f6e4b24d143b7896dd5b242305ab11
+  typescriptHash: 580c03ab42e9b79ec8bb6f15e59a3fac
   onlyWriteTrigger: 0

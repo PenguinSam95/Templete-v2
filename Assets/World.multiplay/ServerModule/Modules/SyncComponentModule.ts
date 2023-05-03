@@ -1,6 +1,7 @@
 import { SandboxPlayer } from "ZEPETO.Multiplay";
 import { IModule } from "../IModule";
-import {sVector3, sQuaternion, SyncTransform, PlayerAdditionalValue, ZepetoAnimationParam} from "ZEPETO.Multiplay.Schema";
+import {sVector3, sQuaternion, SyncTransform, PlayerAdditionalValue, ZepetoAnimationParam, EquipData} from "ZEPETO.Multiplay.Schema";
+import { DataStorage } from "ZEPETO.Multiplay.DataStorage";
 
 export default class SyncComponentModule extends IModule {
     private sessionIdQueue: string[] = [];
@@ -138,6 +139,52 @@ export default class SyncComponentModule extends IModule {
         this.server.onMessage(MESSAGE.CoinAcquired, (client,transformId:string) => {
             this.masterClient()?.send(MESSAGE.CoinAcquired+transformId, client.sessionId);
         });
+        
+        this.server.onMessage(MESSAGE.ChairSit, (client: SandboxPlayer, message) => {
+            const chairMsg :syncChair = {
+                chairId : message.chairId,
+                OwnerSessionId : client.sessionId,
+                onOff: !message.isSit,
+            };
+            const msg = message.isSit ? MESSAGE.ChairSitDown : MESSAGE.ChairSitUp;
+            this.server.broadcast(msg, chairMsg);
+            // this.broadcast(msg, chairMsg, {except: client});
+            // client.send(msg, chairMsg);
+        });
+        
+        this.server.onMessage(MESSAGE.Equip, (client: SandboxPlayer, message) => {
+            let msg = MESSAGE.Equip;
+            const equipData:EquipData = new EquipData();
+            equipData.sessionId = client.sessionId;
+            equipData.itemName = message.name;
+            equipData.bone = message.attach;
+            equipData.key = client.sessionId +"_"+ message.attach;
+            if(this.server.state.equipDatas.has(equipData.key)) {
+                const prevData = this.server.state.equipDatas.get(equipData.key);
+                if(prevData.sessionId == client.sessionId) {
+                    equipData.prevItemName = prevData.itemName;
+                    msg = MESSAGE.EquipChange;
+                }
+            }
+            this.server.state.equipDatas.set(equipData.key, equipData);
+            client.send(msg, equipData);
+        });
+        
+        this.server.onMessage(MESSAGE.Unequip, (client: SandboxPlayer, message) => {
+            const equipData:EquipData = new EquipData();
+            equipData.sessionId = client.sessionId;
+            equipData.itemName = null;
+            equipData.bone = message.attach;
+            equipData.key = client.sessionId +"_"+ message.attach;
+            if(this.server.state.equipDatas.has(equipData.key)) {
+                const prevData = this.server.state.equipDatas.get(equipData.key);
+                if(prevData.sessionId == client.sessionId) {
+                    equipData.prevItemName = prevData.itemName;
+                }
+            }
+            this.server.state.equipDatas.delete(equipData.key);
+            client.send(MESSAGE.Unequip, equipData);
+        });
 
         /** Racing Game **/
         let isStartGame:boolean = false;
@@ -171,8 +218,35 @@ export default class SyncComponentModule extends IModule {
             this.sessionIdQueue.push(client.sessionId.toString());
         }
     }
+    
+    async OnJoined(client: SandboxPlayer) {
+        /* get player */
+        const players = this.server.state.players;
+        const player = players.get(client.sessionId);
+
+        /* load storage */
+        const storage: DataStorage = client.loadDataStorage();
+
+        /* Visit Count */
+        let visit_cnt = await storage.get("VisitCount") as number;
+        if (visit_cnt == null) visit_cnt = 0;
+        player.visit = visit_cnt;
+        await storage.set("VisitCount", ++visit_cnt);
+        console.log(`[OnJoin] ${client.sessionId}'s visiting count : ${visit_cnt}`)
+
+        /* onJoined End */
+        this.server.state.players.set(client.sessionId, player);
+    }
 
     async OnLeave(client: SandboxPlayer) {
+        const player = this.server.state.players.get(client.sessionId);
+
+        /* Visit Count */ 
+        if(player) { // Sample code : Not worked
+            console.log(`[onLeave] ${client.sessionId}'s visiting count : ${player.visit}`)
+            await client.loadDataStorage().set("VisitCount", player.visit);
+        }
+        
         if(this.sessionIdQueue.includes(client.sessionId)) {
             const leavePlayerIndex = this.sessionIdQueue.indexOf(client.sessionId);
             this.sessionIdQueue.splice(leavePlayerIndex, 1);
@@ -185,7 +259,6 @@ export default class SyncComponentModule extends IModule {
 
     OnTick(deltaTime: number) {
     }
-
 }
 interface syncTween {
     Id: string,
@@ -207,6 +280,13 @@ interface InstantiateObj{
     ownerSessionId?:string;
     spawnPosition?:sVector3;
     spawnRotation?:sQuaternion;
+}
+
+/* Chair */
+interface syncChair {
+    chairId: string,
+    OwnerSessionId: string,
+    onOff: boolean,
 }
 
 /** racing game **/
@@ -238,6 +318,14 @@ enum MESSAGE {
     BlockExit = "BlockExit",
     SendBlockEnterCache = "SendBlockEnterCache",
     CoinAcquired = "CoinAcquired",
+
+    ChairSit = "ChairSit",
+    ChairSitDown = "ChairSitDown",
+    ChairSitUp = "ChairSitUp",
+
+    Equip = "Equip",
+    EquipChange = "EquipChange",
+    Unequip = "Unequip",
 
     /** Racing Game **/
     StartRunningRequest = "StartRunningRequest",

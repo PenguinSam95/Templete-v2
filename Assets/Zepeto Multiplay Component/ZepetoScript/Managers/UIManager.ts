@@ -1,15 +1,22 @@
-import { GameObject } from 'UnityEngine';
-import { Image } from 'UnityEngine.UI';
+import { GameObject, Transform } from 'UnityEngine';
+import { Button, Image, Text } from 'UnityEngine.UI';
+import { Room, RoomData } from 'ZEPETO.Multiplay';
 import { ZepetoScriptBehaviour } from 'ZEPETO.Script'
+import { ZepetoWorldMultiplay } from 'ZEPETO.World';
+import SyncIndexManager from '../Common/SyncIndexManager';
+import GameManager from './GameManager';
 
 export default class UIManager extends ZepetoScriptBehaviour {
 
-    /* UI Properties */
-    @SerializeField() public canvas : GameObject;
-    private loadingUIs : GameObject[];
-    private openUI:GameObject;
-    private isPlaying : boolean;
-    private isLoading : boolean;
+    /* UIManagers Default Properties */
+    @Header("UI Manager Field")
+    @SerializeField() public canvas: GameObject;
+    private loadingUIs: GameObject[];
+    private openUI: GameObject;
+    private isPlaying: boolean;
+    private isLoading: boolean;
+    public multiplay: ZepetoWorldMultiplay;
+    public room: Room;
 
     /* Singleton */
     private static _instance: UIManager = null;
@@ -44,9 +51,14 @@ export default class UIManager extends ZepetoScriptBehaviour {
         }
     }
 
-    // Start() {    
-
-    // }
+    Start() {
+        if(!this.multiplay)
+            this.multiplay = GameObject.FindObjectOfType<ZepetoWorldMultiplay>();
+        
+        this.multiplay.RoomJoined += (room: Room) => {
+            this.room = room;
+        }
+    }
 
     /* Find GameObject */ 
     FindLoadingImage(type:LoadingType) : GameObject {

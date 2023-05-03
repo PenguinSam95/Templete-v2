@@ -6,7 +6,7 @@ import GameManager from './GameManager';
 
 export default class CameraManager extends ZepetoScriptBehaviour {
 
-    /* Property */
+    /* Properties */
     private layer_btn : number;
     public multiplay : ZepetoWorldMultiplay;
 
@@ -36,7 +36,7 @@ export default class CameraManager extends ZepetoScriptBehaviour {
             //     GameManager.instance.SwitchButtonScript(hitInfo.value.transform);
             // }
             if(Physics.SphereCast(ray, 0.5, hitInfo, Mathf.Infinity, this.layer_btn)) {
-                console.log(`${hitInfo.value.transform.name} ${hitInfo.value.transform.gameObject.layer} ${this.layer_btn}`);
+                // console.log(`${hitInfo.value.transform.name} ${hitInfo.value.transform.gameObject.layer} ${this.layer_btn}`);
                 GameManager.instance.SwitchButtonScript(hitInfo.value.transform);
             }
         }

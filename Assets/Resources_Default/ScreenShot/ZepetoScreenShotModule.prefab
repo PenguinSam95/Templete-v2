@@ -7924,6 +7924,7 @@ GameObject:
   - component: {fileID: 8185726887184680660}
   - component: {fileID: 8185726887184680662}
   - component: {fileID: 700389113809556400}
+  - component: {fileID: 199769993}
   m_Layer: 0
   m_Name: ZepetoScreenShotModule
   m_TagString: Untagged
@@ -8011,4 +8012,55 @@ MonoBehaviour:
     unityArrayValues: []
     arrayValues: []
     script: {fileID: 4458252877524076426, guid: 4ad7232826783c34082a0b7c2afabfba, type: 3}
+    isExpaned: 0
+--- !u!114 &199769993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8185726887184680661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1673316429, guid: 921f0445823004a16a499d629dd566a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  applyRootMotion: 0
+  script:
+    keys:
+    - startRecordingButton
+    - stopRecordingButton
+    - saveVideoButton
+    - shareVideoButton
+    - createFeedButton
+    - getThumbnailButton
+    - recordPanel
+    - thumbnailImage
+    - targetTexture
+    - recorderCamera
+    unityValues:
+    - {fileID: 5432649537558745624}
+    - {fileID: 7949839982149200723}
+    - {fileID: 635923814}
+    - {fileID: 1931264160}
+    - {fileID: 921937791}
+    - {fileID: 8151213157520457291}
+    - {fileID: 147628333}
+    - {fileID: 280776160}
+    - {fileID: 8400000, guid: 31139ecd5fed06f4fae2ab42374c7670, type: 2}
+    - {fileID: 0}
+    values:
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    unityArrayValues: []
+    arrayValues: []
+    script: {fileID: 4458252877524076426, guid: fbfc6417e5a59164a97d67e742529d1a, type: 3}
     isExpaned: 0

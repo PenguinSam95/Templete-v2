@@ -4,6 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Stamp
+  - Loading
+  - TeleportPoint
   - SpawnPoint
   layers:
   - Default
@@ -12,7 +15,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Button
   - 
   - 
   - 

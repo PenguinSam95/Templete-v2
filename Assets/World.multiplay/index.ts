@@ -30,8 +30,11 @@ export default class extends Sandbox {
             player.zepetoUserId = client.userId;
         }
         this.state.players.set(client.sessionId, player);
-        
         console.log(`join player, ${client.sessionId}`);
+        
+        for (const module of this._modules) {
+            await module.OnJoined(client);
+        }
     }
     
 

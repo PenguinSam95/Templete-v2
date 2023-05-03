@@ -9,6 +9,7 @@ export abstract class IModule {
     }
     abstract OnCreate(): Promise<void>;
     abstract OnJoin(client: SandboxPlayer): Promise<void>;
+    abstract OnJoined(client: SandboxPlayer): Promise<void>;
     abstract OnLeave(client: SandboxPlayer): Promise<void>;
     abstract OnTick(deltaTime: number): void;
 }

@@ -9,6 +9,11 @@ export default class LookAt extends ZepetoScriptBehaviour {
     private renderer: SpriteRenderer;
     private collider: Collider;
     private character: GameObject;
+    private isLooking: boolean;
+    private playerCam: Transform;
+    private wait: WaitForSeconds;
+    
+    /* public Properties */
     public scriptTarget: Transform;
     public buttonType: ButtonType = ButtonType.NULL;
 
@@ -20,37 +25,38 @@ export default class LookAt extends ZepetoScriptBehaviour {
         if(this.collider) this.collider.enabled = false;
     }
 
-    /* Start Look */
     public StartLooking(col : Collider) {
-        if(ZepetoPlayers.instance.LocalPlayer == null)
-            return;
+        if(ZepetoPlayers.instance.LocalPlayer == null) return;
             
         this.character = ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character.gameObject;
-        if(col.gameObject != this.character)
-            return;
+        if(col.gameObject != this.character) return;
         
         if(this.collider) this.collider.enabled = true;
         if(this.renderer) this.renderer.enabled = true;
         this.StartCoroutine(this.LookAtLocalPlayer());
     }
     
-    /* Stop Look */
     public StopLooking(col : Collider) {
-        if(col.gameObject != this.character)
-            return;
+        if(col.gameObject != this.character) return;
 
         if(this.renderer) this.renderer.enabled = false;
         if(this.collider) this.collider.enabled = false;
+        this.isLooking = false;
         this.StopCoroutine(this.LookAtLocalPlayer());
     }
 
-    /* Look Script */
+    /* Locking Script */
     private * LookAtLocalPlayer() {
-        this.transform.LookAt(ZepetoPlayers.instance.LocalPlayer.zepetoCamera.cameraParent.GetChild(0).transform.position);
-        while(true)
-        {
-            yield new WaitForSeconds(0.1);
-            this.transform.LookAt(ZepetoPlayers.instance.LocalPlayer.zepetoCamera.cameraParent.GetChild(0).transform.position);
+        /* Set Init */
+        if(!this.playerCam) this.playerCam = ZepetoPlayers.instance.LocalPlayer.zepetoCamera.cameraParent.GetChild(0).transform;
+        if(!this.wait) this.wait = new WaitForSeconds(0.1);
+
+        /* Main Script */
+        this.transform.LookAt(this.playerCam.position);
+        this.isLooking = true;
+        while(this.isLooking) {
+            yield this.wait;
+            this.transform.LookAt(this.playerCam.position);
         }
     }
 

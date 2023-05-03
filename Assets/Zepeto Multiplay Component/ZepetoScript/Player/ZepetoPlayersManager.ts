@@ -5,7 +5,8 @@ import {SpawnInfo, ZepetoPlayer, ZepetoPlayers} from 'ZEPETO.Character.Controlle
 import {State, Player} from "ZEPETO.Multiplay.Schema";
 import {GameObject, Object, Quaternion, Transform, Vector3, WaitForSeconds} from "UnityEngine";
 import PlayerSync from './PlayerSync';
-import TransformSyncHelper,{PositionExtrapolationType, PositionInterpolationType} from '../Transform/TransformSyncHelper';
+import TransformSyncHelper,{PositionExtrapolationType, PositionInterpolationType, SyncIndexType} from '../Transform/TransformSyncHelper';
+import GameManager from '../Managers/GameManager';
 
 export enum ZepetoPlayerSpawnType {
     NoneSpawn,//Do not create players
@@ -37,6 +38,9 @@ export default class ZepetoPlayersManager extends ZepetoScriptBehaviour {
     private _room: Room;
     private _currentPlayers: Map<string, Player> = new Map<string, Player>();
     private spawnPoint: Transform;
+
+    @Header("GameManager")
+    @SerializeField() private gameManager: GameManager;
     
     
     /* Singleton */
@@ -153,8 +157,11 @@ export default class ZepetoPlayersManager extends ZepetoScriptBehaviour {
         tfHelper.InterpolationType = this.InterpolationType;
         tfHelper.ExtrapolationType = this.ExtrapolationType;
         tfHelper.extraMultipler = this.extraMultipler;
+        tfHelper.syncIndexType = SyncIndexType.Instantiate;
         tfHelper.ChangeOwner(sessionId);
 
+        console.log(` *************** Add PlayerSync ${sessionId} `);
+        
         const playerStateSync = zepetoPlayer.character.transform.gameObject.AddComponent<PlayerSync>();
         playerStateSync.isLocal = isLocal;
         playerStateSync.player = player;
@@ -168,6 +175,13 @@ export default class ZepetoPlayersManager extends ZepetoScriptBehaviour {
             || this.InterpolationType == PositionInterpolationType.Lerp 
             || this.ExtrapolationType == PositionExtrapolationType.FixedSpeed;
         playerStateSync.isUseInjectSpeed = isUseInjectSpeed;
+
+        if(isLocal) {
+            if(!this.gameManager) {
+                this.gameManager = GameObject.FindObjectOfType<GameManager>();
+            }
+            this.gameManager.SetLocalPlayer(player);
+        }
     }
 
     // This is <Content Id, Content> Map for content such as official gestures and poses.

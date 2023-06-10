@@ -18,7 +18,115 @@ ScriptedImporter:
   wrapperTypes: []
   WrapperFilters: []
   wrapperOutputDirectory: Generated
-  compiledResult: '{"source":"","assetPath":"Assets/ZepetoScripts/MultiplaySync/Sample
-    Code/JoystickController.ts","manifest":{"properties":[],"name":"","description":""},"isCompiled":false}'
-  typescriptHash: 11da4ee29ac5bebf2b8b393a9a24bb5c
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nexports.JoystickType = void 0;\r\nconst UnityEngine_1 =
+    require(\"UnityEngine\");\r\nconst UnityEngine_EventSystems_1 = require(\"UnityEngine.EventSystems\");\r\nconst
+    UnityEngine_EventSystems_EventTrigger_1 = require(\"UnityEngine.EventSystems.EventTrigger\");\r\nconst
+    ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst VehicleController_1 =
+    require(\"./VehicleController\");\r\nclass JoystickController extends ZEPETO_Script_1.ZepetoScriptBehaviour
+    {\r\n    constructor() {\r\n        super(...arguments);\r\n        this.joystickType
+    = JoystickType.Circle;\r\n        this.maxSpeed = 3;\r\n        this.maxSize
+    = 120;\r\n        this.isDrag = false;\r\n    }\r\n    Start() {\r\n        this.firstPos
+    = this.joycon.transform.position;\r\n        this.eventTrigger = this.GetComponent($typeof(UnityEngine_EventSystems_1.EventTrigger));\r\n       
+    this.minX = this.firstPos.x - this.maxSize;\r\n        this.maxX = this.firstPos.x
+    + this.maxSize;\r\n        this.minY = this.firstPos.y - this.maxSize;\r\n       
+    this.maxY = this.firstPos.y + this.maxSize;\r\n        const entry_PointerDown
+    = new UnityEngine_EventSystems_EventTrigger_1.Entry();\r\n        const entry_PointerUp
+    = new UnityEngine_EventSystems_EventTrigger_1.Entry();\r\n        const entry_Drag
+    = new UnityEngine_EventSystems_EventTrigger_1.Entry();\r\n        const entry_DragEnd
+    = new UnityEngine_EventSystems_EventTrigger_1.Entry();\r\n        entry_PointerDown.eventID
+    = UnityEngine_EventSystems_1.EventTriggerType.PointerDown;\r\n        entry_PointerUp.eventID
+    = UnityEngine_EventSystems_1.EventTriggerType.PointerUp;\r\n        entry_Drag.eventID
+    = UnityEngine_EventSystems_1.EventTriggerType.Drag;\r\n        entry_DragEnd.eventID
+    = UnityEngine_EventSystems_1.EventTriggerType.EndDrag;\r\n        entry_PointerDown.callback.AddListener((eventData)
+    => this.onPointDown(eventData));\r\n        entry_PointerUp.callback.AddListener((eventData)
+    => this.onPointUp(eventData));\r\n        entry_Drag.callback.AddListener((eventData)
+    => this.onDrag(eventData));\r\n        entry_DragEnd.callback.AddListener((eventData)
+    => this.onDragEnd(eventData));\r\n        this.eventTrigger.triggers.Add(entry_PointerDown);\r\n       
+    this.eventTrigger.triggers.Add(entry_PointerUp);\r\n        this.eventTrigger.triggers.Add(entry_Drag);\r\n       
+    this.eventTrigger.triggers.Add(entry_DragEnd);\r\n    }\r\n    /* Main Controller
+    */\r\n    onPointDown(eventData) {\r\n        if (this.joystickType == JoystickType.UDSide)
+    {\r\n            this.joycon.position = this.ConvertToVector3(eventData.position);\r\n           
+    this.target.SetHandleValue(JoystickType.UDSide, this.CurSpeed(this.firstPos.y,
+    this.joycon.position.y, true));\r\n        }\r\n        else if (this.joystickType
+    == JoystickType.RLSide) {\r\n            this.joycon.position = this.ConvertToVector3(eventData.position);\r\n           
+    this.target.SetHandleValue(JoystickType.RLSide, this.CurSpeed(this.firstPos.y,
+    this.joycon.position.x));\r\n        }\r\n        else if (this.joystickType
+    == JoystickType.ToFront) {\r\n            this.target.SetHandleValue(JoystickType.ToFront,
+    1);\r\n        }\r\n        else if (this.joystickType == JoystickType.ToBack)
+    {\r\n            this.target.SetHandleValue(JoystickType.ToBack, -0.4);\r\n       
+    }\r\n        else if (this.joystickType == JoystickType.ToUp) {\r\n           
+    // this.target.SetHandleValue(JoystickType.ToUp, 1);\r\n        }\r\n       
+    else if (this.joystickType == JoystickType.ToDown) {\r\n            // this.target.SetHandleValue(JoystickType.ToDown,
+    -0.4);\r\n        }\r\n        else if (this.joystickType == JoystickType.Handling)
+    {\r\n            this.StopCoroutine(this.ReturnHandle());\r\n        }\r\n   
+    }\r\n    onPointUp(eventData) {\r\n        if (this.joystickType == JoystickType.UDSide)
+    {\r\n            this.joycon.position = this.firstPos;\r\n            this.target.SetHandleValue(JoystickType.UDSide);\r\n       
+    }\r\n        else if (this.joystickType == JoystickType.RLSide) {\r\n           
+    this.joycon.position = this.firstPos;\r\n            this.target.SetHandleValue(JoystickType.RLSide);\r\n       
+    }\r\n        else if (this.joystickType == JoystickType.Circle) {\r\n           
+    this.joycon.position = this.firstPos;\r\n        }\r\n        else if (this.joystickType
+    == JoystickType.ToFront) {\r\n            this.target.SetHandleValue(JoystickType.ToFront);\r\n       
+    }\r\n        else if (this.joystickType == JoystickType.ToBack) {\r\n           
+    this.target.SetHandleValue(JoystickType.ToBack);\r\n        }\r\n        else
+    if (this.joystickType == JoystickType.ToUp) {\r\n            // this.target.SetHandleValue(JoystickType.ToUp);\r\n       
+    }\r\n        else if (this.joystickType == JoystickType.ToDown) {\r\n           
+    // this.target.SetHandleValue(JoystickType.ToDown);\r\n        }\r\n    }\r\n   
+    onDrag(eventData) {\r\n        if (!this.target)\r\n            return;\r\n       
+    this.isDrag = true;\r\n        if (this.joystickType == JoystickType.UDSide)
+    {\r\n            this.joycon.position = this.ConvertToVector3(eventData.position);\r\n           
+    this.target.SetHandleValue(JoystickType.UDSide, this.CurSpeed(this.firstPos.y,
+    this.joycon.position.y, true));\r\n        }\r\n        else if (this.joystickType
+    == JoystickType.RLSide) {\r\n            this.joycon.position = this.ConvertToVector3(eventData.position);\r\n           
+    this.target.SetHandleValue(JoystickType.RLSide, this.CurSpeed(this.firstPos.x,
+    this.joycon.position.x));\r\n        }\r\n        else if (this.joystickType
+    == JoystickType.Circle) {\r\n        }\r\n        else if (this.joystickType
+    == JoystickType.Handling) {\r\n            const angle = this.ClampAngle(this.ConvertToVector3(eventData.position));\r\n           
+    this.joycon.rotation = UnityEngine_1.Quaternion.Euler(0, 0, angle);\r\n           
+    this.target.SetHandleValue(JoystickType.Handling, 0, this.CurSpeed(0, angle,
+    true));\r\n        }\r\n    }\r\n    onDragEnd(eventData) {\r\n        if (!this.target)\r\n           
+    return;\r\n        this.isDrag = false;\r\n        if (this.joystickType == JoystickType.UDSide)
+    {\r\n            this.joycon.position = this.firstPos;\r\n            this.target.SetHandleValue(JoystickType.UDSide);\r\n       
+    }\r\n        else if (this.joystickType == JoystickType.RLSide) {\r\n           
+    this.joycon.position = this.firstPos;\r\n            this.target.SetHandleValue(JoystickType.RLSide);\r\n       
+    }\r\n        else if (this.joystickType == JoystickType.Circle) {\r\n           
+    this.joycon.position = this.firstPos;\r\n        }\r\n        else if (this.joystickType
+    == JoystickType.Handling) {\r\n            this.StartCoroutine(this.ReturnHandle());\r\n       
+    }\r\n    }\r\n    /* Sub Controller - Handle */\r\n    *ReturnHandle() {\r\n       
+    let time = 0;\r\n        const tick = 0.02;\r\n        const wait = new UnityEngine_1.WaitForSeconds(tick);\r\n       
+    while (!this.isDrag) {\r\n            this.joycon.up = UnityEngine_1.Vector3.Lerp(this.joycon.up,
+    UnityEngine_1.Vector3.up, tick * 2);\r\n            const angle = this.ClampAngle(this.joycon.up,
+    true);\r\n            this.target.SetHandleValue(JoystickType.Handling, 0, this.CurSpeed(0,
+    angle, true));\r\n            yield wait;\r\n            time += 1;\r\n           
+    if (time > 150)\r\n                break;\r\n        }\r\n    }\r\n    /* Curculator
+    */\r\n    CurSpeed(firstValue, currentValue, reverse = false) {\r\n        const
+    reverseValue = reverse ? -1 : 1;\r\n        return (this.maxSpeed * (currentValue
+    - firstValue) * reverseValue) / this.maxSize;\r\n    }\r\n    ClampAngle(point,
+    isAngle = false) {\r\n        const currect = isAngle ? UnityEngine_1.Vector3.zero
+    : this.firstPos;\r\n        const z = UnityEngine_1.Quaternion.FromToRotation(UnityEngine_1.Vector3.up,
+    UnityEngine_1.Vector3.op_Subtraction(point, currect)).eulerAngles.z;\r\n       
+    return z < 180 ? UnityEngine_1.Mathf.Clamp(z, 0, this.maxSize) : UnityEngine_1.Mathf.Clamp(z
+    - 360, -this.maxSize, 0);\r\n    }\r\n    /* Converter */\r\n    ConvertToVector3(vector)
+    {\r\n        const x = UnityEngine_1.Mathf.Clamp(vector.x, this.minX, this.maxX);\r\n       
+    const y = UnityEngine_1.Mathf.Clamp(vector.y, this.minY, this.maxY);\r\n       
+    if (this.joystickType == JoystickType.UDSide) {\r\n            return new UnityEngine_1.Vector3(this.firstPos.x,
+    y, 0);\r\n        }\r\n        else if (this.joystickType == JoystickType.RLSide)
+    {\r\n            return new UnityEngine_1.Vector3(x, this.firstPos.y, 0);\r\n       
+    }\r\n        else if (this.joystickType == JoystickType.Circle) {\r\n           
+    console.log(`JoystickType.Circle ${x}=${y}`);\r\n            return new UnityEngine_1.Vector3(x,
+    y, 0);\r\n        }\r\n        else if (this.joystickType == JoystickType.Handling)
+    {\r\n            return new UnityEngine_1.Vector3(x, y, 0);\r\n        }\r\n       
+    return this.firstPos;\r\n    }\r\n}\r\nexports.default = JoystickController;\r\nvar
+    JoystickType;\r\n(function (JoystickType) {\r\n    JoystickType[JoystickType[\"Circle\"]
+    = 0] = \"Circle\";\r\n    JoystickType[JoystickType[\"RLSide\"] = 1] = \"RLSide\";\r\n   
+    JoystickType[JoystickType[\"UDSide\"] = 2] = \"UDSide\";\r\n    JoystickType[JoystickType[\"ToRight\"]
+    = 3] = \"ToRight\";\r\n    JoystickType[JoystickType[\"ToLeft\"] = 4] = \"ToLeft\";\r\n   
+    JoystickType[JoystickType[\"ToBack\"] = 5] = \"ToBack\";\r\n    JoystickType[JoystickType[\"ToFront\"]
+    = 6] = \"ToFront\";\r\n    JoystickType[JoystickType[\"ToUp\"] = 7] = \"ToUp\";\r\n   
+    JoystickType[JoystickType[\"ToDown\"] = 8] = \"ToDown\";\r\n    JoystickType[JoystickType[\"Handling\"]
+    = 9] = \"Handling\";\r\n})(JoystickType = exports.JoystickType || (exports.JoystickType
+    = {}));\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiSm95c3RpY2tDb250cm9sbGVyLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiSm95c3RpY2tDb250cm9sbGVyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7OztBQUFBLDZDQUE2RjtBQUM3Rix1RUFBNEY7QUFDNUYsaUdBQThEO0FBRTlELGlEQUFxRDtBQUNyRCwyREFBb0Q7QUFFcEQsTUFBcUIsa0JBQW1CLFNBQVEscUNBQXFCO0lBQXJFOztRQUVXLGlCQUFZLEdBQWdCLFlBQVksQ0FBQyxNQUFNLENBQUM7UUFFaEQsYUFBUSxHQUFVLENBQUMsQ0FBQztRQUNwQixZQUFPLEdBQVUsR0FBRyxDQUFDO1FBU3BCLFdBQU0sR0FBVyxLQUFLLENBQUM7SUEyS25DLENBQUM7SUF6S0csS0FBSztRQUVELElBQUksQ0FBQyxRQUFRLEdBQUcsSUFBSSxDQUFDLE1BQU0sQ0FBQyxTQUFTLENBQUMsUUFBUSxDQUFDO1FBQy9DLElBQUksQ0FBQyxZQUFZLEdBQUcsSUFBSSxDQUFDLFlBQVksU0FBQyx1Q0FBWSxFQUFHLENBQUM7UUFDdEQsSUFBSSxDQUFDLElBQUksR0FBRyxJQUFJLENBQUMsUUFBUSxDQUFDLENBQUMsR0FBQyxJQUFJLENBQUMsT0FBTyxDQUFDO1FBQ3pDLElBQUksQ0FBQyxJQUFJLEdBQUcsSUFBSSxDQUFDLFFBQVEsQ0FBQyxDQUFDLEdBQUMsSUFBSSxDQUFDLE9BQU8sQ0FBQztRQUN6QyxJQUFJLENBQUMsSUFBSSxHQUFHLElBQUksQ0FBQyxRQUFRLENBQUMsQ0FBQyxHQUFDLElBQUksQ0FBQyxPQUFPLENBQUM7UUFDekMsSUFBSSxDQUFDLElBQUksR0FBRyxJQUFJLENBQUMsUUFBUSxDQUFDLENBQUMsR0FBQyxJQUFJLENBQUMsT0FBTyxDQUFDO1FBRXpDLE1BQU0saUJBQWlCLEdBQUcsSUFBSSw2Q0FBSyxFQUFFLENBQUM7UUFDdEMsTUFBTSxlQUFlLEdBQUcsSUFBSSw2Q0FBSyxFQUFFLENBQUM7UUFDcEMsTUFBTSxVQUFVLEdBQUcs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","assetPath":"Assets/ZepetoScripts/MultiplaySync/Sample
+    Code/JoystickController.ts","manifest":{"properties":[{"assembly":"","name":"joystickType","type":"JoystickType","isArray":false,"initValue":["Circle"],"enumKeys":["Circle","RLSide","UDSide","ToRight","ToLeft","ToBack","ToFront","ToUp","ToDown","Handling"],"enumValues":["0","1","2","3","4","5","6","7","8","9"],"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"joycon","type":"UnityEngine.Transform","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"mscorlib","name":"maxSpeed","type":"System.Single","isArray":false,"initValue":["3"],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"mscorlib","name":"maxSize","type":"System.Single","isArray":false,"initValue":["120"],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"","name":"target","type":"G:/Github/Templete-v2/Assets/ZepetoScripts/MultiplaySync/Sample
+    Code/VehicleController.default","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]}],"name":"JoystickController","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: 44480e1cd42a3e66a8898921486da0b8
   onlyWriteTrigger: 0

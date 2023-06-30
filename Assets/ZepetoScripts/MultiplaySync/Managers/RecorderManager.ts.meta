@@ -1,0 +1,59 @@
+fileFormatVersion: 2
+guid: fbfc6417e5a59164a97d67e742529d1a
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: "{\"source\":\"\\\"use strict\\\";\\r\\nObject.defineProperty(exports,
+    \\\"__esModule\\\", { value: true });\\r\\nconst UnityEngine_1 = require(\\\"UnityEngine\\\");\\r\\nconst
+    ZEPETO_Script_1 = require(\\\"ZEPETO.Script\\\");\\r\\nconst ZEPETO_World_1 =
+    require(\\\"ZEPETO.World\\\");\\r\\nclass RecorderManager extends ZEPETO_Script_1.ZepetoScriptBehaviour
+    {\\r\\n    Awake() {\\r\\n        this.videoPlayerObject = new UnityEngine_1.GameObject();\\r\\n   
+    }\\r\\n    Start() {\\r\\n        this.startRecordingButton.onClick.AddListener(()
+    => {\\r\\n            const camClone = UnityEngine_1.GameObject.Instantiate(this.recorderCamera.gameObject,
+    this.recorderCamera.transform.position, this.recorderCamera.transform.rotation,
+    this.recorderCamera.transform);\\r\\n            const cam = camClone.GetComponent($typeof(UnityEngine_1.Camera));\\r\\n           
+    this.recorderCamera.CopyFrom(cam);\\r\\n            if (false == ZEPETO_World_1.WorldVideoRecorder.StartRecording(cam,
+    ZEPETO_World_1.VideoResolutions.W1280xH720, 15)) {\\r\\n                return;\\r\\n           
+    }\\r\\n            this.StartCoroutine(this.CheckRecording());\\r\\n           
+    this.recordPanel.gameObject.SetActive(false);\\r\\n            this.stopRecordingButton.gameObject.SetActive(true);\\r\\n           
+    this.startRecordingButton.gameObject.SetActive(false);\\r\\n        });\\r\\n       
+    this.stopRecordingButton.onClick.AddListener(() => {\\r\\n            if (false
+    == ZEPETO_World_1.WorldVideoRecorder.IsRecording()) {\\r\\n                return;\\r\\n           
+    }\\r\\n            ZEPETO_World_1.WorldVideoRecorder.StopRecording();\\r\\n           
+    this.recordPanel.gameObject.SetActive(true);\\r\\n            this.stopRecordingButton.gameObject.SetActive(false);\\r\\n           
+    this.startRecordingButton.gameObject.SetActive(true);\\r\\n        });\\r\\n       
+    this.saveVideoButton.onClick.AddListener(() => {\\r\\n            if (false ==
+    ZEPETO_World_1.WorldVideoRecorder.IsRecording()) {\\r\\n                ZEPETO_World_1.WorldVideoRecorder.SaveToCameraRoll(result
+    => { console.log(`${result}`); });\\r\\n            }\\r\\n        });\\r\\n       
+    this.shareVideoButton.onClick.AddListener(() => {\\r\\n            if (false
+    == ZEPETO_World_1.WorldVideoRecorder.IsRecording()) {\\r\\n                ZEPETO_World_1.WorldVideoRecorder.Share(result
+    => { console.log(`${result}`); });\\r\\n            }\\r\\n        });\\r\\n       
+    this.createFeedButton.onClick.AddListener(() => {\\r\\n            if (false
+    == ZEPETO_World_1.WorldVideoRecorder.IsRecording()) {\\r\\n                ZEPETO_World_1.WorldVideoRecorder.CreateFeed(\\\"\uB098\uB9CC\uC758
+    \uC81C\uD398\uD1A0 \uC6D4\uB4DC!\\\", result => { console.log(`${result}`); });\\r\\n           
+    }\\r\\n        });\\r\\n        this.getThumbnailButton.onClick.AddListener(()
+    => {\\r\\n            if (false == ZEPETO_World_1.WorldVideoRecorder.IsRecording())
+    {\\r\\n                this.thumbnailImage.texture = ZEPETO_World_1.WorldVideoRecorder.GetThumbnail();\\r\\n           
+    }\\r\\n        });\\r\\n    }\\r\\n    *CheckRecording() {\\r\\n        while
+    (ZEPETO_World_1.WorldVideoRecorder.IsRecording()) {\\r\\n            yield null;\\r\\n       
+    }\\r\\n        const videoPlayer = ZEPETO_World_1.WorldVideoRecorder.AddVideoPlayerComponent(this.videoPlayerObject,
+    this.targetTexture);\\r\\n        if (videoPlayer == null) {\\r\\n           
+    return;\\r\\n        }\\r\\n        videoPlayer.Play();\\r\\n    }\\r\\n}\\r\\nexports.default
+    = RecorderManager;\\r\\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiUmVjb3JkZXJNYW5hZ2VyLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiUmVjb3JkZXJNYW5hZ2VyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsNkNBQWdFO0FBRWhFLGlEQUFxRDtBQUNyRCwrQ0FBb0U7QUFFcEUsTUFBcUIsZUFBZ0IsU0FBUSxxQ0FBcUI7SUFxQjlELEtBQUs7UUFDRCxJQUFJLENBQUMsaUJBQWlCLEdBQUcsSUFBSSx3QkFBVSxFQUFFLENBQUM7SUFDOUMsQ0FBQztJQUVELEtBQUs7UUFDRCxJQUFJLENBQUMsb0JBQW9CLENBQUMsT0FBTyxDQUFDLFdBQVcsQ0FBQyxHQUFHLEVBQUU7WUFDL0MsTUFBTSxRQUFRLEdBQUcsd0JBQVUsQ0FBQyxXQUFXLENBQ25DLElBQUksQ0FBQyxjQUFjLENBQUMsVUFBVSxFQUM5QixJQUFJLENBQUMsY0FBYyxDQUFDLFNBQVMsQ0FBQyxRQUFRLEVBQUUsSUFBSSxDQUFDLGNBQWMsQ0FBQyxTQUFTLENBQUMsUUFBUSxFQUM5RSxJQUFJLENBQUMsY0FBYyxDQUFDLFNBQVMsQ0FBZSxDQUFDO1lBQ2pELE1BQU0sR0FBRyxHQUFHLFFBQVEsQ0FBQyxZQUFZLFNBQUMsb0JBQU0sRUFBRyxDQUFDO1lBQzVDLElBQUksQ0FBQyxjQUFjLENBQUMsUUFBUSxDQUFDLEdBQUcsQ0FBQyxDQUFDO1lBQ2xDLElBQUksS0FBSyxJQUFJLGlDQUFrQixDQUFDLGNBQWMsQ0FBQyxHQUFHLEVBQUUsK0JBQWdCLENBQUMsVUFBVSxFQUFFLEVBQUUsQ0FBQyxFQUFFO2dCQUNsRixPQUFPO2FBQ1Y7WUFDRCxJQUFJLENBQUMsY0FBYyxDQUFDLElBQUksQ0FBQyxjQUFjLEVBQUUsQ0FBQyxDQUFDO1lBQzNDLElBQUksQ0FBQyxXQUFXLENBQUMsVUFBVSxDQUFDLFNBQVMsQ0FBQyxLQUFLLENBQUMsQ0FBQztZQUM3QyxJQUFJLENBQUMsbUJBQW1CLENBQUMsVUFBVSxDQUFDLFNBQVMsQ0FBQyxJQUFJLENBQUMs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\",\"assetPath\":\"Assets/ZepetoScripts/MultiplaySync/Managers/RecorderManager.ts\",\"manifest\":{\"properties\":[{\"assembly\":\"UnityEngine.UI\",\"name\":\"startRecordingButton\",\"type\":\"UnityEngine.UI.Button\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.UI\",\"name\":\"stopRecordingButton\",\"type\":\"UnityEngine.UI.Button\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.UI\",\"name\":\"saveVideoButton\",\"type\":\"UnityEngine.UI.Button\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.UI\",\"name\":\"shareVideoButton\",\"type\":\"UnityEngine.UI.Button\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.UI\",\"name\":\"createFeedButton\",\"type\":\"UnityEngine.UI.Button\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.UI\",\"name\":\"getThumbnailButton\",\"type\":\"UnityEngine.UI.Button\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.UI\",\"name\":\"recordPanel\",\"type\":\"UnityEngine.UI.Image\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.UI\",\"name\":\"thumbnailImage\",\"type\":\"UnityEngine.UI.RawImage\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.CoreModule\",\"name\":\"recorderCamera\",\"type\":\"UnityEngine.Camera\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"UnityEngine.CoreModule\",\"name\":\"targetTexture\",\"type\":\"UnityEngine.RenderTexture\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]}],\"name\":\"RecorderManager\",\"description\":\"\"},\"isCompiled\":true}"
+  typescriptHash: 3b1ff4712ac6ebe2d0bdbf17a3d919b9
+  onlyWriteTrigger: 0
